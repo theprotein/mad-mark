@@ -1,0 +1,17 @@
+block('page').content()(function() {
+    var content = applyNext();
+
+    // return content.map(function(post) {
+    //     return {
+    //         block: 'post',
+    //         content: post.content
+    //     };
+    // });
+
+    return Array.isArray(content) ? content.map(function(post) {
+        return {
+            block: 'post',
+            content: post.content
+        };
+    }) : content.content;
+});

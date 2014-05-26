@@ -1,0 +1,2 @@
+mkdir -p output
+node grab.js && node generate.js

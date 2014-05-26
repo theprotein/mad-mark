@@ -1,0 +1,15 @@
+{
+  "name": "bem-blog",
+  "version": "1.0.0",
+  "description": "Static blog generator made with BEM",
+  "bugs": "https://github.com/tadatuta/bem-blog/issues",
+  "ignore": [
+    ".bem/cache",
+    "node_modules",
+    "libs"
+  ],
+  "dependencies": {
+    "bem-core": "v2.2.1",
+    "bem-components": "git://github.com/bem/bem-components.git#62242d38e6cb5123054399c5b60a001941f98b65"
+  }
+}
