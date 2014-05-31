@@ -5,6 +5,7 @@ block('root').def()(function() {
 
     this._lang = ctx.lang;
     this._title = ctx.title;
+    this._pagination = ctx.pagination;
 
     return applyCtx({
         block: 'page',

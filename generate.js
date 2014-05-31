@@ -45,15 +45,37 @@ langs.forEach(function(lang) {
         langPages = filterByLang(pages, lang);
 
     // генерация индексных страниц блога
-    bemtree.apply({
-        block: 'root',
-        title: config.title[lang],
-        data: langPosts,
-        lang: lang
-    })
-    .then(function(bemjson) {
-        var p = path.resolve('./' + pathToOutput + '/blog.' + lang + '.html');
-        fs.writeFileSync(p, bemhtml.apply(bemjson));
+    // бьем langPosts на массивы по config.postsPerPage айтемов в каждом
+    var paginatedPosts = [],
+        postsLength = langPosts.length,
+        postsPerPage = config.postsPerPage;
+
+    for (var i = 0, curPage = 0; i < postsLength; i++) {
+        i > 0 && (i % postsPerPage == 0) && curPage++;
+        paginatedPosts[curPage] = paginatedPosts[curPage] || [];
+        paginatedPosts[curPage].push(langPosts[i]);
+    }
+
+    paginatedPosts.forEach(function(pageOfPosts, idx) {
+        var total = +(postsLength / postsPerPage).toFixed() +
+                    (postsLength % postsPerPage ? 1 : 0);
+
+        bemtree.apply({
+            block: 'root',
+            title: config.title[lang],
+            data: pageOfPosts,
+            lang: lang,
+            pagination: {
+                totalPages: total,
+                idx: idx,
+                isLast: total == idx + 1,
+                needPagination: total > 1
+            }
+        })
+        .then(function(bemjson) {
+            var p = path.resolve('./' + pathToOutput + '/blog' + (idx ? '-' + idx : '') + '.' + lang + '.html');
+            fs.writeFileSync(p, bemhtml.apply(bemjson));
+        });
     });
 
     // генерация индексов по тегам
