@@ -10,7 +10,11 @@ block('page').content()(function() {
                 content: [
                     {
                         tag: 'h1',
-                        content: 'Мурсин блог'
+                        content: {
+                            block: 'link', // TODO: не вешать ссылку для морды
+                            url: '/output/', // TODO: подставлять правильную ссылку
+                            content: 'Мурсин блог'
+                        }
                     },
                     {
                         block: 'link',
