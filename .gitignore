@@ -16,5 +16,5 @@ node_modules/
 
 # blog
 data.json
-content
+/content
 output

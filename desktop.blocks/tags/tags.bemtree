@@ -1,7 +1,6 @@
 block('tags').content()(function() {
     var tags = applyNext();
     return tags.map(function(tag, idx) {
-        console.log('tags.length', tags.length, 'idx', idx);
         return [
             {
                 block: 'link',
