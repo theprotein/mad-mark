@@ -1,0 +1,11 @@
+.page
+{
+    font-family: 'Gentium Book Basic', Georgia, serif;
+    color: #444;
+}
+
+.page__inner
+{
+    width: 700px;
+    margin: auto;
+}

@@ -1,4 +1,4 @@
-block('root').content()(function() {
+block('root').def()(function() {
     var ctx = this.ctx,
         data = this._data = ctx.data;
 
@@ -7,7 +7,7 @@ block('root').content()(function() {
 
     var isRussian = this.ctx.lang == 'ru'; // TODO: get rid of this in honour of global config
 
-    return {
+    return applyCtx({
         block: 'page',
         title: (meta && meta.title ? meta.title + ' — ' : '') +
             (isRussian ? 'Мурся' : 'Mursya'),
@@ -17,5 +17,5 @@ block('root').content()(function() {
         scripts: [
             { elem: 'js', url: '_index.js' }
         ]
-    };
+    });
 });

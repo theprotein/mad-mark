@@ -1,13 +1,5 @@
-.post
+.post h2
 {
-    font-family: Arial, sans-serif;
-    width: 700px;
-    margin: auto;
-}
-
-.post h1
-{
-    font-family: Georgia, serif;
     font-weight: normal;
     font-size: 50px;
 }

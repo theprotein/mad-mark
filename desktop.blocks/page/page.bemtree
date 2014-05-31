@@ -2,24 +2,27 @@ block('page').content()(function() {
     var isList = Array.isArray(this._data), // TODO: use BEMHTML helper
         isRussian = this._lang == 'ru'; // TODO: get rid of this in honour of global config
 
-    return [
-        {
-            block: 'header',
-            content: [
-                {
-                    tag: 'h1',
-                    content: 'Мурсин блог'
-                },
-                {
-                    block: 'link',
-                    url: 'index.' + (isRussian ? 'en' : 'ru') + '.html',
-                    content: isRussian ? 'English' : 'по-русски'
-                }
-            ]
-        },
-        {
-            block: 'content',
-            mods: { type: isList ? 'list' : 'single' }
-        }
-    ];
+    return {
+        elem: 'inner', // TODO: вынести в тему, когда будет поправлен шаблон page в bem-core
+        content: [
+            {
+                block: 'header',
+                content: [
+                    {
+                        tag: 'h1',
+                        content: 'Мурсин блог'
+                    },
+                    {
+                        block: 'link',
+                        url: 'index.' + (isRussian ? 'en' : 'ru') + '.html',
+                        content: isRussian ? 'English' : 'по-русски'
+                    }
+                ]
+            },
+            {
+                block: 'content',
+                mods: { type: isList ? 'list' : 'single' }
+            }
+        ]
+    };
 });

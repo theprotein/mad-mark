@@ -1,3 +1,3 @@
 ({
-    shouldDeps: ['content']
+    shouldDeps: ['header', 'content']
 })
