@@ -13,7 +13,7 @@ block('page').content()(function() {
                         content: {
                             block: 'link', // TODO: не вешать ссылку для морды
                             url: '/output/', // TODO: подставлять правильную ссылку
-                            content: 'Мурсин блог'
+                            content: this._title
                         }
                     },
                     {

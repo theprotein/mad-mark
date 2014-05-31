@@ -17,4 +17,4 @@ var results = mdFiles.map(function(file) {
     };
 });
 
-fs.writeFileSync('data.json', JSON.stringify(results));
+fs.writeFileSync('content/data.json', JSON.stringify(results));

@@ -11,7 +11,8 @@ var path = require('path'),
 
     vm.runInContext(bemtreeTmpl, ctx);
 
-var data = require('./data.json'),
+var config = require('./content/config.json'),
+    data = require('./content/data.json'),
     langs = data.reduce(function(prev, cur) {
         prev.indexOf(cur.lang) < 0 && prev.push(cur.lang);
         return prev;
@@ -44,16 +45,28 @@ langs.forEach(function(lang) {
         langPages = filterByLang(pages, lang);
 
     // генерация индексных страниц блога
-    bemtree.apply({ block: 'root', data: langPosts, lang: lang }).then(function(bemjson) {
+    bemtree.apply({
+        block: 'root',
+        title: config.title[lang],
+        data: langPosts,
+        lang: lang
+    })
+    .then(function(bemjson) {
         var p = path.resolve('./' + pathToOutput + '/blog.' + lang + '.html');
         fs.writeFileSync(p, bemhtml.apply(bemjson));
     });
 
     // генерация индексов по тегам
     tags[lang].forEach(function(tag) {
-        bemtree.apply({ block: 'root', data: langPosts.filter(function(post) {
-            return post.meta && post.meta.tags && post.meta.tags.indexOf(tag) > -1;
-        }), lang: lang }).then(function(bemjson) {
+        bemtree.apply({
+            block: 'root',
+            title: config.title[lang],
+            data: langPosts.filter(function(post) {
+                return post.meta && post.meta.tags && post.meta.tags.indexOf(tag) > -1;
+            }),
+            lang: lang
+        })
+        .then(function(bemjson) {
             var p = path.resolve('./' + pathToOutput + '/tag-'+ tag + '.' + lang + '.html');
             fs.writeFileSync(p, bemhtml.apply(bemjson));
         });
@@ -63,7 +76,13 @@ langs.forEach(function(lang) {
     langPages.concat(langPosts).forEach(function(page) {
         page.meta = page.meta || {};
 
-        bemtree.apply({ block: 'root', data: page, lang: lang }).then(function(bemjson) {
+        bemtree.apply({
+            block: 'root',
+            title: config.title[lang],
+            data: page,
+            lang: lang
+        })
+        .then(function(bemjson) {
             fs.writeFileSync(pathToOutput + '/' + page.fileName.split('.')[0] + '.' + lang + '.html', bemhtml.apply(bemjson));
         });
     });

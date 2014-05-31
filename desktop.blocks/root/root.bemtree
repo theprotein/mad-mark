@@ -1,16 +1,15 @@
 block('root').def()(function() {
     var ctx = this.ctx,
-        data = this._data = ctx.data;
+        data = this._data = ctx.data,
+        meta = data.meta || {};
 
-    var lang = this._lang = ctx.lang;
-    var meta = data.meta;
-
-    var isRussian = this.ctx.lang == 'ru'; // TODO: get rid of this in honour of global config
+    this._lang = ctx.lang;
+    this._title = ctx.title;
 
     return applyCtx({
         block: 'page',
-        title: (meta && meta.title ? meta.title + ' — ' : '') +
-            (isRussian ? 'Мурся' : 'Mursya'),
+        title: (meta.title ? meta.title + ' — ' : '') +
+            ctx.title,
         head: [
             { elem: 'css', url: '_index.css' }
         ],

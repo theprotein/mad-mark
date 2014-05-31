@@ -15,6 +15,5 @@ node_modules/
 !*pages*/.bem/*
 
 # blog
-data.json
 /content
 output
