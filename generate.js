@@ -2,8 +2,7 @@ var path = require('path'),
     fs = require('fs'),
     vm = require('vm'),
     pathToBundle = path.join('desktop.bundles', 'index'),
-    pathToOutput = 'output',
-    bemtreeTmpl = fs.readFileSync(pathToBundle + '/index.bemtree.js'),
+    bemtreeTmpl = fs.readFileSync(path.join(pathToBundle, 'index.bemtree.js')),
     ctx = vm.createContext({
         console: console,
         Vow: require('./libs/bem-core/common.blocks/vow/vow.vanilla.js')
@@ -12,7 +11,8 @@ var path = require('path'),
     vm.runInContext(bemtreeTmpl, ctx);
 
 var config = require('./content/config.json'),
-    data = require('./output/data.json'),
+    outputFolder = config.outputFolder || 'output',
+    data = require('./' + outputFolder + '/data.json'),
     langs = data.reduce(function(prev, cur) {
         prev.indexOf(cur.lang) < 0 && prev.push(cur.lang);
         return prev;
@@ -73,7 +73,7 @@ langs.forEach(function(lang) {
             }
         })
         .then(function(bemjson) {
-            var p = path.resolve('./' + pathToOutput + '/blog' + (idx ? '-' + idx : '') + '.' + lang + '.html');
+            var p = path.resolve('./' + outputFolder + '/blog' + (idx ? '-' + idx : '') + '.' + lang + '.html');
             fs.writeFileSync(p, bemhtml.apply(bemjson));
         });
     });
@@ -89,7 +89,7 @@ langs.forEach(function(lang) {
             lang: lang
         })
         .then(function(bemjson) {
-            var p = path.resolve('./' + pathToOutput + '/tag-'+ tag + '.' + lang + '.html');
+            var p = path.resolve('./' + outputFolder + '/tag-'+ tag + '.' + lang + '.html');
             fs.writeFileSync(p, bemhtml.apply(bemjson));
         });
     });
@@ -105,7 +105,7 @@ langs.forEach(function(lang) {
             lang: lang
         })
         .then(function(bemjson) {
-            fs.writeFileSync(pathToOutput + '/' + page.fileName.split('.')[0] + '.' + lang + '.html', bemhtml.apply(bemjson));
+            fs.writeFileSync(path.join(outputFolder, page.fileName.split('.')[0] + '.' + lang + '.html'), bemhtml.apply(bemjson));
         });
     });
 });

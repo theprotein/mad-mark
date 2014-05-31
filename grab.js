@@ -1,7 +1,10 @@
 var fs = require('fs'),
+    path = require('path'),
     glob = require('glob'),
     marked = require('meta-marked'),
 
+    config = require('./content/config.json'),
+    outputFolder = config.outputFolder || 'output',
     mdFiles = glob.sync('content/*/*.md');
 
 var results = mdFiles.map(function(file) {
@@ -17,4 +20,8 @@ var results = mdFiles.map(function(file) {
     };
 });
 
-fs.writeFileSync('output/data.json', JSON.stringify(results));
+fs.mkdir(outputFolder, function(err) {
+    if (err && err.code != 'EEXIST') throw new Error(err);
+
+    fs.writeFileSync(path.join(outputFolder, 'data.json'), JSON.stringify(results));
+});
