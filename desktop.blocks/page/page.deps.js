@@ -1,5 +1,3 @@
 ({
-    shouldDeps: [
-        'post'
-    ]
+    shouldDeps: ['content']
 })

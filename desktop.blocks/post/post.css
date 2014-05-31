@@ -1,10 +1,20 @@
 .post
 {
     font-family: Arial, sans-serif;
+    width: 700px;
+    margin: auto;
 }
 
 .post h1
 {
     font-family: Georgia, serif;
     font-weight: normal;
+    font-size: 50px;
+}
+
+.post p
+{
+    font-size: 22px;
+    line-height: 1.5;
+    margin-bottom: 30px;
 }

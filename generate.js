@@ -35,14 +35,15 @@ langs.forEach(function(lang) {
     var langPosts = filterByLang(posts, lang),
         langPages = filterByLang(pages, lang);
 
-    bemtree.apply({ block: 'root', data: langPosts }).then(function(bemjson) {
-        console.log('bemjson', bemjson);
+    bemtree.apply({ block: 'root', data: langPosts, lang: lang }).then(function(bemjson) {
         var p = path.resolve('./' + pathToOutput + '/blog.' + lang + '.html');
         fs.writeFileSync(p, bemhtml.apply(bemjson));
     });
 
-    langPages.forEach(function(page) {
-        bemtree.apply({ block: 'root', data: page }).then(function(bemjson) {
+    langPages.concat(langPosts).forEach(function(page) {
+        page.meta = page.meta || {};
+
+        bemtree.apply({ block: 'root', data: page, lang: lang }).then(function(bemjson) {
             fs.writeFileSync(pathToOutput + '/' + page.fileName.split('.')[0] + '.' + lang + '.html', bemhtml.apply(bemjson));
         });
     });

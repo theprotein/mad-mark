@@ -1,17 +1,25 @@
 block('page').content()(function() {
-    var content = applyNext();
+    var isList = Array.isArray(this._data), // TODO: use BEMHTML helper
+        isRussian = this._lang == 'ru'; // TODO: get rid of this in honour of global config
 
-    // return content.map(function(post) {
-    //     return {
-    //         block: 'post',
-    //         content: post.content
-    //     };
-    // });
-
-    return Array.isArray(content) ? content.map(function(post) {
-        return {
-            block: 'post',
-            content: post.content
-        };
-    }) : content.content;
+    return [
+        {
+            block: 'header',
+            content: [
+                {
+                    tag: 'h1',
+                    content: 'Мурсин блог'
+                },
+                {
+                    block: 'link',
+                    url: 'index.' + (isRussian ? 'en' : 'ru') + '.html',
+                    content: isRussian ? 'English' : 'по-русски'
+                }
+            ]
+        },
+        {
+            block: 'content',
+            mods: { type: isList ? 'list' : 'single' }
+        }
+    ];
 });

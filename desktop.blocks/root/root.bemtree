@@ -1,12 +1,21 @@
-block('root').content()({
-    block: 'page',
-    title: 'Mursya',
-    head: [
-        { elem: 'css', url: '_index.css' }
-    ],
-    scripts: [
-        { elem: 'js', url: '/jquery.min.js' },
-        { elem: 'js', url: '_index.js' }
-    ],
-    content: this.ctx.data
-})
+block('root').content()(function() {
+    var ctx = this.ctx,
+        data = this._data = ctx.data;
+
+    var lang = this._lang = ctx.lang;
+    var meta = data.meta;
+
+    var isRussian = this.ctx.lang == 'ru'; // TODO: get rid of this in honour of global config
+
+    return {
+        block: 'page',
+        title: (meta && meta.title ? meta.title + ' — ' : '') +
+            (isRussian ? 'Мурся' : 'Mursya'),
+        head: [
+            { elem: 'css', url: '_index.css' }
+        ],
+        scripts: [
+            { elem: 'js', url: '_index.js' }
+        ]
+    };
+});
