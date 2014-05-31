@@ -12,7 +12,7 @@ var path = require('path'),
     vm.runInContext(bemtreeTmpl, ctx);
 
 var config = require('./content/config.json'),
-    data = require('./content/data.json'),
+    data = require('./output/data.json'),
     langs = data.reduce(function(prev, cur) {
         prev.indexOf(cur.lang) < 0 && prev.push(cur.lang);
         return prev;
