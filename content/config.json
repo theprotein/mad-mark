@@ -1,0 +1,9 @@
+{
+    "title": {
+        "ru": "Блог",
+        "en": "Blog"
+    },
+    "langs": ["ru", "en"],
+    "postsPerPage": 10,
+    "outputFolder": "output"
+}

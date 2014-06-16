@@ -8,12 +8,14 @@ node_modules/
 # bem
 .bem/cache/
 *bundles*/*/*.*
-!*bundles*/*/*.bemjson.js
+!*bundles*/*/*.bemdecl.js
 !*bundles*/.bem/*
 *pages*/*/*.*
-!*pages*/*/*.bemjson.js
+!*pages*/*/*.bemdecl.js
 !*pages*/.bem/*
 
 # blog
-/content
+content/*
+!/content/config.json
+!/content/i18n.json
 output
