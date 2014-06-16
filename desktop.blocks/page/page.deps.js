@@ -1,3 +1,8 @@
 ({
-    shouldDeps: ['header', 'content', 'link']
+    shouldDeps: [
+        { mods: { type: 'tags' } },
+        'header',
+        'content',
+        'link'
+    ]
 })

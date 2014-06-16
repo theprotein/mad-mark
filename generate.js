@@ -12,6 +12,7 @@ var path = require('path'),
 
 var config = require('./content/config.json'),
     outputFolder = config.outputFolder || 'output',
+    i18n = require('./content/i18n.json'),
     data = require('./' + outputFolder + '/data.json'),
     langs = data.reduce(function(prev, cur) {
         prev.indexOf(cur.lang) < 0 && prev.push(cur.lang);
@@ -77,6 +78,23 @@ langs.forEach(function(lang) {
             fs.writeFileSync(p, bemhtml.apply(bemjson));
         });
     });
+
+    // генерация страницы всех тегов
+    // bemtree.apply({
+    //     block: 'root',
+    //     title: config.title[lang],
+    //     mods: { type: 'tags' },
+    //     lang: lang,
+    //     i18n: i18n,
+    //     content: tags[lang],
+    //     data : {
+    //         meta: {} // TODO: прокидывать данные для meta-тегов
+    //     }
+    // })
+    // .then(function(bemjson) {
+    //     var p = path.resolve('./' + outputFolder + '/tags.' + lang + '.html');
+    //     fs.writeFileSync(p, bemhtml.apply(bemjson));
+    // });
 
     // генерация индексов по тегам
     tags[lang].forEach(function(tag) {

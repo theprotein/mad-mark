@@ -19,3 +19,29 @@ block('root').def()(function() {
         ]
     });
 });
+
+block('root').mod('type', 'tags').def()(function() {
+    var ctx = this.ctx;
+
+    this._lang = ctx.lang;
+    this._title = ctx.title;
+
+    return applyCtx({
+        block: 'page',
+        title: ctx.i18n[this._lang].tags + ' — ' + ctx.title, // TODO: capitalize
+        head: [
+            { elem: 'css', url: '_index.css' }
+        ],
+        scripts: [
+            { elem: 'js', url: '_index.js' }
+        ],
+        mods: { type: 'tags' },
+        content: this.ctx.content.map(function(tag) {
+            return {
+                block: 'link',
+                url: 'tag-' + tag + this._lang + '.html',
+                content: tag
+            };
+        })
+    });
+});
