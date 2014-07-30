@@ -10,6 +10,12 @@ cd bb
 npm i
 ```
 
+Build script assumes you have `./node_modules/.bin` in your `PATH`:
+
+```bash
+export PATH=./node_modules/.bin:$PATH
+```
+
 ## Rebuild content
 
 ```bash
