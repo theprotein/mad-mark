@@ -23,5 +23,8 @@ var results = mdFiles.map(function(file) {
 fs.mkdir(outputFolder, function(err) {
     if (err && err.code != 'EEXIST') throw new Error(err);
 
-    fs.writeFileSync(path.join(outputFolder, 'data.json'), JSON.stringify(results));
+    fs.writeFile(path.join(outputFolder, 'data.json'),
+        JSON.stringify(results), function(err) {
+            if (err) throw new Error(err);
+        });
 });
