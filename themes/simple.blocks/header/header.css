@@ -1,5 +1,29 @@
+.header
+{
+	position: relative;
+}
+
 .header h1
 {
     font-weight: normal;
-    font-size: 54px;
+    font-size: 50px;
+
+    margin: -62px 0 0 0;
+    padding-right: 64px;
+
+    text-align: right;
+}
+
+.subtitle
+{
+	color: #fff;
+	font-size: 20px;
+	padding-right: 64px;
+	text-align: right;
+}
+
+.header a,
+.header .link
+{
+    color: #fff;
 }

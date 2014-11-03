@@ -10,16 +10,16 @@ cd bb
 npm i
 ```
 
-Build script assumes you have `./node_modules/.bin` in your `PATH`:
+## Rebuild and start the server
 
 ```bash
-export PATH=./node_modules/.bin:$PATH
+npm start
 ```
 
 ## Rebuild content
 
 ```bash
-./build
+npm run build
 ```
 
 ## Content

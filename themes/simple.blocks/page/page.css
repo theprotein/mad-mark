@@ -2,10 +2,13 @@
 {
     font-family: 'Gentium Book Basic', Georgia, serif;
     color: #444;
+    background: #ffba00;
+    margin: 0;
+    padding-top: 150px;
 }
 
 .page__inner
 {
-    width: 700px;
+    width: 750px;
     margin: auto;
 }

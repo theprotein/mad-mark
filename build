@@ -1,4 +1,0 @@
-bem make
-node grab.js && node generate.js
-cp desktop.bundles/index/_index.css output/
-cp desktop.bundles/index/_index.js output/

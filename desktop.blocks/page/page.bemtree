@@ -19,8 +19,13 @@ block('page').content()(function() {
                     },
                     {
                         block: 'link',
+                        mix: { block: 'language-switcher' },
                         url: 'index.' + (isRussian ? 'en' : 'ru') + '.html',
-                        content: isRussian ? 'English' : 'по-русски'
+                        content: isRussian ? 'Read in English' : 'Читать по-русски'
+                    },
+                    {
+                        block: 'subtitle',
+                        content: this._subtitle
                     }
                 ]
             },

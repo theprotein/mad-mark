@@ -33,7 +33,11 @@ var config = require('./content/config.json'),
         return item.type == 'post';
     }),
     bemtree = ctx.BEMTREE,
-    bemhtml = require('./' + pathToBundle + '/index.bemhtml.js').BEMHTML;
+    bemhtml = require('./' + pathToBundle + '/index.bemhtml.js').BEMHTML,
+    user = config.users[0],
+    gravatarHash = require('crypto').createHash('md5').update(user.email, 'utf8').digest('hex');
+
+user.avatar = 'https://www.gravatar.com/avatar/' + gravatarHash + '?s=240&default=' + encodeURIComponent('path/To/Fallback/Photo'); // TODO: path/To/Fallback/Photo
 
 var filterByLang = function(items, lang) {
     return items.filter(function(item) {
@@ -63,9 +67,11 @@ langs.forEach(function(lang) {
 
         bemtree.apply({
             block: 'root',
-            title: config.title[lang],
+            title: config.title && config.title[lang] || '',
+            subtitle: config.subtitle && config.subtitle[lang] || '',
             data: pageOfPosts,
             lang: lang,
+            user: user,
             pagination: {
                 totalPages: total,
                 idx: idx,
@@ -97,14 +103,16 @@ langs.forEach(function(lang) {
     // });
 
     // генерация индексов по тегам
-    tags[lang].forEach(function(tag) {
+    tags[lang] && tags[lang].forEach(function(tag) {
         bemtree.apply({
             block: 'root',
-            title: config.title[lang],
+            title: config.title && config.title[lang] || '',
+            subtitle: config.subtitle && config.subtitle[lang] || '',
             data: langPosts.filter(function(post) {
                 return post.meta && post.meta.tags && post.meta.tags.indexOf(tag) > -1;
             }),
-            lang: lang
+            lang: lang,
+            user: user
         })
         .then(function(bemjson) {
             var p = path.resolve('./' + outputFolder + '/tag-'+ tag + '.' + lang + '.html');
@@ -118,9 +126,11 @@ langs.forEach(function(lang) {
 
         bemtree.apply({
             block: 'root',
-            title: config.title[lang],
+            title: config.title && config.title[lang] || '',
+            subtitle: config.subtitle && config.subtitle[lang] || '',
             data: page,
-            lang: lang
+            lang: lang,
+            user: user
         })
         .then(function(bemjson) {
             fs.writeFileSync(path.join(outputFolder, page.fileName.split('.')[0] + '.' + lang + '.html'), bemhtml.apply(bemjson));

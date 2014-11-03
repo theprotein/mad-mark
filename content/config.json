@@ -3,7 +3,17 @@
         "ru": "Блог",
         "en": "Blog"
     },
+    "subtitle": {
+        "ru": "на стеке БЭМ-технологий",
+        "en": "on BEM stack"
+	},
     "langs": ["ru", "en"],
     "postsPerPage": 10,
-    "outputFolder": "output"
+    "outputFolder": "output",
+    "users": [
+        {
+            "login": "tadatuta",
+            "email": "i@tadatuta.com"
+        }
+    ]
 }

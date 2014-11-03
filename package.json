@@ -17,13 +17,16 @@
     "roole": "~0.9.0"
   },
   "devDependencies": {
-    "bem": "0.8.1",
+    "bem": "0.9.0",
+    "bem-tools-autoprefixer": "0.0.3",
     "bower-npm-install": "~0.5.4",
-    "bem-tools-autoprefixer": "0.0.3"
+    "stylus": "^0.49.2"
   },
   "scripts": {
-    "postinstall": "bower-npm-install --non-interactive",
-    "deps": "bower-npm-install --non-interactive"
+    "postinstall": "npm run deps && npm run build",
+    "deps": "bower-npm-install",
+    "build": "bem make && node grab.js && node generate.js && cp desktop.bundles/index/_index.css output/ && cp desktop.bundles/index/_index.js output/",
+    "start": "npm run build && bem server"
   },
   "private": true
 }
