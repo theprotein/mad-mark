@@ -4,6 +4,7 @@ var path = require('path'),
     pathToBundle = path.join('desktop.bundles', 'index'),
     bemtreeTmpl = fs.readFileSync(path.join(pathToBundle, 'index.bemtree.js')),
     ctx = vm.createContext({
+        require: require,
         console: console,
         Vow: require('./libs/bem-core/common.blocks/vow/vow.vanilla.js')
     });
@@ -26,28 +27,35 @@ var config = require('./content/config.json'),
 
         return prev;
     }, {}),
-    pages = data.filter(function(item) {
-        return item.type == 'page';
-    }),
-    posts = data.filter(function(item) {
-        return item.type == 'post';
-    }),
     bemtree = ctx.BEMTREE,
     bemhtml = require('./' + pathToBundle + '/index.bemhtml.js').BEMHTML,
-    user = config.users[0],
-    gravatarHash = require('crypto').createHash('md5').update(user.email, 'utf8').digest('hex');
+    user = config.users[0];
 
-user.avatar = 'https://www.gravatar.com/avatar/' + gravatarHash + '?s=240&default=' + encodeURIComponent('path/To/Fallback/Photo'); // TODO: path/To/Fallback/Photo
+// TODO: подумать, не генерировать ли такую структуру изначально
+function getContentByLang(data) {
+    // возвращает контент в виде {
+    //     en: {
+    //         page: [item, item],
+    //         post: [item, item]
+    //     }
+    // }
+    var posts = [],
+        pages = [],
+        result = {};
 
-var filterByLang = function(items, lang) {
-    return items.filter(function(item) {
-        return item.lang == lang;
+    data.forEach(function(item) {
+        var lang = item.lang || 'all';
+        result[lang] || (result[lang] = {});
+        result[lang][item.type] || (result[lang][item.type] = []);
+        result[lang][item.type].push(item);
     });
-};
+
+    return result;
+}
 
 langs.forEach(function(lang) {
-    var langPosts = filterByLang(posts, lang),
-        langPages = filterByLang(pages, lang);
+    var langPosts = getContentByLang(data)[lang].post,
+        langPages = getContentByLang(data)[lang].page;
 
     // генерация индексных страниц блога
     // бьем langPosts на массивы по config.postsPerPage айтемов в каждом
@@ -57,12 +65,14 @@ langs.forEach(function(lang) {
 
     for (var i = 0, curPage = 0; i < postsLength; i++) {
         i > 0 && (i % postsPerPage == 0) && curPage++;
-        paginatedPosts[curPage] = paginatedPosts[curPage] || [];
-        paginatedPosts[curPage].push(langPosts[i]);
+        // paginatedPosts[curPage] = paginatedPosts[curPage] || [];
+        // paginatedPosts[curPage].push(langPosts[i]);
+        paginatedPosts[curPage] = (paginatedPosts[curPage] || [])
+                .concat(langPosts[i]);
     }
 
     paginatedPosts.forEach(function(pageOfPosts, idx) {
-        var total = +(postsLength / postsPerPage).toFixed() +
+        var totalPages = +(postsLength / postsPerPage).toFixed() +
                     (postsLength % postsPerPage ? 1 : 0);
 
         bemtree.apply({
@@ -73,10 +83,10 @@ langs.forEach(function(lang) {
             lang: lang,
             user: user,
             pagination: {
-                totalPages: total,
+                totalPages: totalPages,
                 idx: idx,
-                isLast: total == idx + 1,
-                needPagination: total > 1
+                isLast: totalPages == idx + 1,
+                needPagination: totalPages > 1
             }
         })
         .then(function(bemjson) {

@@ -2,7 +2,7 @@ block('header').content()(function() {
     return [
         {
             block: 'avatar',
-            url: this._avatar
+            url: this.bb.avatar
         },
         applyNext()
     ];

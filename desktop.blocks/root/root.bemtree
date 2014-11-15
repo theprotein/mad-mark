@@ -1,49 +1,33 @@
 block('root').def()(function() {
     var ctx = this.ctx,
-        data = this._data = ctx.data,
+        data = this.bb = this._data = ctx.data,
         meta = data.meta || {};
 
     this._lang = ctx.lang;
     this._title = ctx.title;
     this._subtitle = ctx.subtitle;
     this._pagination = ctx.pagination;
-    this._avatar = ctx.user.avatar;
+
+    // применяем плагины
+    this.bb = this.extend(this.bb, apply('plugins'));
+
+    var mods = this.mods,
+        pageType = mods.type,
+        title = (meta.title ? meta.title + ' — ' : '') + ctx.title || '';
+
+    if(pageType === 'tags') {
+        title = ctx.i18n[this._lang].tags + ' — ' + ctx.title; // TODO: capitalize
+    }
 
     return applyCtx({
         block: 'page',
-        title: (meta.title ? meta.title + ' — ' : '') +
-            ctx.title,
+        title: title,
+        mods: { type: pageType },
         head: [
             { elem: 'css', url: '_index.css' }
         ],
         scripts: [
             { elem: 'js', url: '_index.js' }
         ]
-    });
-});
-
-block('root').mod('type', 'tags').def()(function() {
-    var ctx = this.ctx;
-
-    this._lang = ctx.lang;
-    this._title = ctx.title;
-
-    return applyCtx({
-        block: 'page',
-        title: ctx.i18n[this._lang].tags + ' — ' + ctx.title, // TODO: capitalize
-        head: [
-            { elem: 'css', url: '_index.css' }
-        ],
-        scripts: [
-            { elem: 'js', url: '_index.js' }
-        ],
-        mods: { type: 'tags' },
-        content: this.ctx.content.map(function(tag) {
-            return {
-                block: 'link',
-                url: 'tag-' + tag + this._lang + '.html',
-                content: tag
-            };
-        })
     });
 });
