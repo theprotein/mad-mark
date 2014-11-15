@@ -8,6 +8,6 @@ block('tags').content()(function() {
                 content: tag
             },
             tags.length > idx + 1 ? ', ' : ''
-        ]
+        ];
     }, this);
 });
