@@ -4,4 +4,4 @@ node_js:
 after_success: ./update-gh-pages.sh
 env:
   global:
-    secure: MKC4TbOu/Mo6OeeYG85p8cmIykPw0Bz1K06lCW0Zr6tEvARhUb3sKH0gKdrA4ND91dvRvvvWQF8QI2mCH6D7xzg0YZDkAn3rqYuiuuloK721Oj/Wj3BLvVkKp0EyUlh6DngBJGUxrAVw6fNc7HF77oO1RDp0WHewBlVAE3NXv8E=
+  - secure: Nb6Gw3csiAYkdepcdKwcQAZcjkK703VOWa79IoTFo6Q+dyHjplaJtCJmFoX+P9T8pMkzngT0pYmzgatZQKRlb0NVZfxfmvy263/0mPgfrs6MgvSKVv11sIIowBXB39m2iWcYLCBnb3/O209RZ0NoZGdGiNLqqDr6rZNTe6heck0=
