@@ -11,7 +11,7 @@ block('page').content()(function() {
                     tag: 'h1',
                     content: {
                         block: 'link', // TODO: не вешать ссылку для морды
-                        url: '/output/index.' + this._lang + '.html', // TODO: подставлять правильную ссылку
+                        url: 'index.' + this._lang + '.html', // TODO: подставлять правильную ссылку
                         content: this._title
                     }
                 },

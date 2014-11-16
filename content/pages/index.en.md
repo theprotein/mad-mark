@@ -1,5 +1,5 @@
 Morda
 =====
 
-[Read blog](/output/blog.en.html)
-[Static page](/output/second.en.html)
+[Read blog](blog.en.html)
+[Static page](second.en.html)
