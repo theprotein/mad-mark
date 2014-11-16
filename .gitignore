@@ -15,7 +15,6 @@ node_modules/
 !*pages*/.bem/*
 
 # blog
-content/*
 !/content/config.json
 !/content/i18n.json
 output
