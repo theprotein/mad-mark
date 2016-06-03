@@ -79,7 +79,7 @@ langs.forEach(function(lang) {
         }
       });
 
-      var p = path.resolve('../' + outputFolder + '/blog' + (idx ? '-' + idx : '') + '.' + lang + '.html');
+      var p = path.resolve('./' + outputFolder + '/blog' + (idx ? '-' + idx : '') + '.' + lang + '.html');
       fs.writeFileSync(p, bemhtml.apply(bemjson));
     });
 
@@ -102,7 +102,7 @@ langs.forEach(function(lang) {
 
     // генерация индексов по тегам
     tags[lang] && tags[lang].forEach(function(tag) {
-      var p = path.resolve('../' + outputFolder + '/tag-'+ tag + '.' + lang + '.html');
+      var p = path.resolve('./' + outputFolder + '/tag-'+ tag + '.' + lang + '.html');
       var bemjson = bemtree.apply({
         block: 'root',
         title: config.title && config.title[lang] || '',
