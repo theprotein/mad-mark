@@ -5,8 +5,7 @@ var techs = {
   stylus: require('enb-stylus/techs/stylus'),
   browserJs: require('enb-js/techs/browser-js'),
   bemtree: require('enb-bemxjst/techs/bemtree'),
-  bemhtml: require('enb-bemxjst/techs/bemhtml'),
-  bemjsonToHtml: require('enb-bemxjst/techs/bemjson-to-html')
+  bemhtml: require('enb-bemxjst/techs/bemhtml')
 },
 enbBemTechs = require('enb-bem-techs'),
 levels = [
