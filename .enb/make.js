@@ -16,14 +16,14 @@ levels = [
   'node_modules/bem-components/design/common.blocks',
   'node_modules/bem-components/design/desktop.blocks',
   'node_modules/bem-grid/common.blocks',
-  'desktop.blocks',
-  'themes/simple.blocks'
+  'src/components',
+  'src/themes/simple'
 ];
 
 module.exports = function(config) {
   var isProd = process.env.YENV === 'production';
 
-  config.nodes('*.bundles/*', function(nodeConfig) {
+  config.nodes('bundles/*', function(nodeConfig) {
     nodeConfig.addTechs([
       [enbBemTechs.levels, { levels: levels }],
       [techs.fileProvider, { target: '?.bemdecl.js' }],
@@ -53,8 +53,6 @@ module.exports = function(config) {
           require('postcss-reporter')
         ]
       }],
-      [techs.bemtree, { sourceSuffixes: ['bemtree', 'bemtree.js'] }],
-      [techs.bemhtml, { sourceSuffixes: ['bemhtml', 'bemhtml.js'] }],
       [enbBemTechs.depsByTechToBemdecl, {
         target: '.tmp.bemhtml.bemdecl.js',
         sourceTech: 'js',
@@ -82,10 +80,12 @@ module.exports = function(config) {
         target: '.tmp.js',
         sources: ['.tmp.browser.js', '.tmp.browser.bemhtml.js']
       }],
+      [techs.bemtree, { sourceSuffixes: ['bemtree', 'bemtree.js'] }],
+      [techs.bemhtml, { sourceSuffixes: ['bemhtml', 'bemhtml.js'] }],
       [techs.borschik, { source: '.tmp.js', target: '?.min.js', minify: isProd }],
       [techs.borschik, { source: '.tmp.css', target: '?.min.css', minify: isProd }]
     ]);
 
-    nodeConfig.addTargets(['?.bemtree.js', '?.min.css', '?.min.js']);
+    nodeConfig.addTargets(['?.bemtree.js', '?.bemhtml.js', '?.min.css', '?.min.js']);
   });
 };

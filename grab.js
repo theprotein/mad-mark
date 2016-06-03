@@ -2,10 +2,9 @@ var fs = require('fs'),
   path = require('path'),
   glob = require('glob'),
   marked = require('meta-marked'),
-
-  config = require('./content/config.json'),
+  config = require('./src/content/config.json'),
   outputFolder = config.outputFolder || 'output',
-  mdFiles = glob.sync('content/*/*.md');
+  mdFiles = glob.sync('src/content/*/*.md');
 
 var results = mdFiles.map(function(file) {
   var parsed = marked(fs.readFileSync(file, 'utf-8'));

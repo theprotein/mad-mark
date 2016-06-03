@@ -1,10 +1,10 @@
 {
   "author": "",
-  "name": "bem-blog",
+  "name": "static-blog-on-bem",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tadatuta/bem-blog.git"
+    "url": "git@github.com:awinogradov/bb.git"
   },
   "engines": {
     "node": ">=0.10"
@@ -38,8 +38,8 @@
     "postcss-url": "^5.1.2"
   },
   "scripts": {
-    "build": "enb make && node grab.js && node generate.js && cp desktop.bundles/index/index.min.css output/ && cp desktop.bundles/index/index.min.js output/",
-    "start": "npm run build && bem server"
+    "build": "enb make && node grab.js && node generate.js && cp bundles/index/index.min.css output/ && cp bundles/index/index.min.js output/",
+    "start": "npm run build"
   },
   "private": true
 }

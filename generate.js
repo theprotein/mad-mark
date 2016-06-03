@@ -1,11 +1,11 @@
 var path = require('path'),
     fs = require('fs'),
-    bemtree = require('./desktop.bundles/index/index.bemtree.js').BEMTREE,
-    bemhtml = require('./desktop.bundles/index/index.bemhtml.js').BEMHTML;
+    bemtree = require('./bundles/index/index.bemtree.js').BEMTREE,
+    bemhtml = require('./bundles/index/index.bemhtml.js').BEMHTML;
 
-var config = require('./content/config.json'),
+var config = require('./src/content/config.json'),
     outputFolder = config.outputFolder || 'output',
-    i18n = require('./content/i18n.json'),
+    i18n = require('./src/content/i18n.json'),
     data = require('./' + outputFolder + '/data.json'),
     langs = data.reduce(function(prev, cur) {
       prev.indexOf(cur.lang) < 0 && prev.push(cur.lang);
