@@ -24,10 +24,8 @@ module.exports = function(config) {
 
   config.nodes('*.bundles/*', function(nodeConfig) {
     nodeConfig.addTechs([
-      // essential
       [enbBemTechs.levels, { levels: levels }],
       [techs.fileProvider, { target: '?.bemdecl.js' }],
-      // [enbBemTechs.bemjsonToBemdecl],
       [enbBemTechs.deps],
       [enbBemTechs.files],
       [techs.stylus, {
