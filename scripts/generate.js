@@ -30,8 +30,6 @@ langs.forEach(lang => {
       }
 
       paginatedPosts.forEach((page, idx) => {
-        const pagePath = resolve('./' + outputFolder + '/' + layout + '/' + 'index' + (idx ? '-' + idx : '') + (lang == 'en' ? '' : '.' + lang) + '.html');
-
         const bemjson = BEMTREE.apply({
           block: 'root',
           mods: { layout: layout },
@@ -48,6 +46,7 @@ langs.forEach(lang => {
           }
         });
 
+        const pagePath = join(outputFolder, layout, `index${(idx ? '-' + idx : '')}${resolveLang(lang)}.html`);
         fs.outputFileSync(pagePath, BEMHTML.apply(bemjson));
       });
     }
@@ -65,7 +64,8 @@ langs.forEach(lang => {
         user: user
       });
 
-      fs.outputFileSync(join(outputFolder, layout, page.fileName.split('.')[0] + (lang == 'en' /*get def lang from config*/ ? '' : '.' + lang) + '.html'), BEMHTML.apply(bemjson));
+      const pagePath = join(outputFolder, layout, `${page.name}${resolveLang(lang)}.html`);
+      fs.outputFileSync(pagePath, BEMHTML.apply(bemjson));
     });
 
   });
@@ -89,6 +89,10 @@ langs.forEach(lang => {
   // });
 
 });
+
+function resolveLang(lang) {
+  return (lang === config.defaultLang ? '' : '.' + lang);
+}
 
 function getTags(data) {
   return data.reduce((prev, cur) => {

@@ -18,10 +18,10 @@ bs.init({
     baseDir: './dist'
   },
   files: [
-    './dist/*.css',
-    './dist/*.js',
-    './dist/*.html',
-    './dist/*.*.html'
+    './dist/**/*.css',
+    './dist/**/*.js',
+    './dist/**/*.html',
+    './dist/**/*.*.html'
   ],
   tunnel: false,
   online: false,

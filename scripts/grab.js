@@ -9,9 +9,11 @@ const mdFiles = require('glob').sync('src/content/*/*.md'); // TODO: get from co
 const results = mdFiles.map(file => {
   const md = fs.readFileSync(file, 'utf-8');
   const parsed = marked(md);
+  const fileName = file.split('/').reverse()[0];
 
   return {
-    fileName: file.split('/').reverse()[0],
+    fileName: fileName,
+    name: fileName.split('.')[0],
     layout: file.split('/').reverse()[1],
     path: file,
     lang: file.split('.').reverse()[1],
