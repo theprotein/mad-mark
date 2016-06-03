@@ -8,8 +8,13 @@
     "en": "on BEM stack"
 	},
   "langs": ["ru", "en"],
-  "postsPerPage": 10,
-  "outputFolder": "output",
+  "defaultLang": ["en"],
+  "layouts": {
+    "blog": {
+      "paginate": 10
+    }
+  },
+  "outputFolder": "dist",
   "users": [
     {
       "login": "tadatuta",

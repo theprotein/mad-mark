@@ -16,6 +16,7 @@ levels = [
   'node_modules/bem-components/design/common.blocks',
   'node_modules/bem-components/design/desktop.blocks',
   'node_modules/bem-grid/common.blocks',
+  'src/layouts',
   'src/components',
   'src/themes/simple'
 ];

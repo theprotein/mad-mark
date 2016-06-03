@@ -4,7 +4,7 @@ const fs = require('bluebird').promisifyAll(require('fs-extra'));
 const {join} = require('path');
 const marked = require('meta-marked');
 const config = require('../src/content/config.json');
-const mdFiles = require('glob').sync('src/content/*/*.md');
+const mdFiles = require('glob').sync('src/content/*/*.md'); // TODO: get from config
 
 const results = mdFiles.map(file => {
   const md = fs.readFileSync(file, 'utf-8');
@@ -12,7 +12,7 @@ const results = mdFiles.map(file => {
 
   return {
     fileName: file.split('/').reverse()[0],
-    type: file.indexOf('/pages/') > -1 ? 'page' : 'post',
+    layout: file.split('/').reverse()[1],
     path: file,
     lang: file.split('.').reverse()[1],
     meta: parsed.meta,

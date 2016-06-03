@@ -12,22 +12,22 @@ block('root').def()(function() {
   this.bb = this.extend(this.bb, apply('plugins'));
 
   var mods = this.mods,
-    pageType = mods.type,
+    layout = mods.layout,
     title = (meta.title ? meta.title + ' — ' : '') + ctx.title || '';
 
-  if(pageType === 'tags') {
+  if(layout === 'tags') {
     title = ctx.i18n[this._lang].tags + ' — ' + ctx.title; // TODO: capitalize
   }
 
   return applyCtx({
     block: 'page',
     title: title,
-    mods: { type: pageType },
+    mods: { layout: layout },
     head: [
-      { elem: 'css', url: 'index.min.css' }
+      { elem: 'css', url: '../css/index.min.css' }
     ],
     scripts: [
-      { elem: 'js', url: 'index.min.js' }
+      { elem: 'js', url: '../js/index.min.js' }
     ]
   });
 });
