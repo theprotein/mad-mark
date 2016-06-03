@@ -8,9 +8,6 @@ block('root').def()(function() {
   this._subtitle = ctx.subtitle;
   this._pagination = ctx.pagination;
 
-  // применяем плагины
-  this.bb = this.extend(this.bb, apply('plugins'));
-
   var mods = this.mods,
     layout = mods.layout,
     title = (meta.title ? meta.title + ' — ' : '') + ctx.title || '';

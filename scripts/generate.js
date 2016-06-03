@@ -46,7 +46,7 @@ langs.forEach(lang => {
           }
         });
 
-        const pagePath = join(outputFolder, layout, `index${(idx ? '-' + idx : '')}${resolveLang(lang)}.html`);
+        const pagePath = join(outputFolder, layout, `index${resolvePageNum(idx)}${resolveLang(lang)}.html`);
         fs.outputFileSync(pagePath, BEMHTML.apply(bemjson));
       });
     }
@@ -90,8 +90,12 @@ langs.forEach(lang => {
 
 });
 
+function resolvePageNum(idx) {
+  return idx ? `-${idx}` : '';
+}
+
 function resolveLang(lang) {
-  return (lang === config.defaultLang ? '' : '.' + lang);
+  return lang === config.defaultLang ? '' : `.${lang}`;
 }
 
 function getTags(data) {
