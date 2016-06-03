@@ -40,27 +40,32 @@ module.exports = function(config) {
       }],
       [techs.bemtree, { sourceSuffixes: ['bemtree', 'bemtree.js'] }],
       [techs.bemhtml, { sourceSuffixes: ['bemhtml', 'bemhtml.js'] }],
-      // [techs.bemjsonToHtml],
-      // [enbBemTechs.depsByTechToBemdecl, {
-      //   target: '?.bemhtml.bemdecl.js',
-      //   sourceTech: 'js',
-      //   destTech: 'bemhtml'
-      // }],
-      // [enbBemTechs.deps],
-      // [enbBemTechs.files],
-      // [techs.bemhtml, {
-        // target: '?.browser.bemhtml.js',
-        // filesTarget: '?.bemhtml.files',
-        // sourceSuffixes: ['bemhtml', 'bemhtml.js']
-      // }],
-      [techs.browserJs, {
-        includeYM: true,
-        target: '?.js',
+      [enbBemTechs.depsByTechToBemdecl, {
+        target: '?.bemhtml.bemdecl.js',
+        sourceTech: 'js',
+        destTech: 'bemhtml'
       }],
-      // [techs.fileMerge, {
-      //   target: '?.js',
-      //   sources: ['?.browser.js', '?.browser.bemhtml.js']
-      // }],
+      [enbBemTechs.deps, {
+        target: '?.bemhtml.deps.js',
+        bemdeclFile: '?.bemhtml.bemdecl.js'
+      }],
+      [enbBemTechs.files, {
+        depsFile: '?.bemhtml.deps.js',
+        filesTarget: '?.bemhtml.files',
+        dirsTarget: '?.bemhtml.dirs'
+      }],
+      [techs.bemhtml, {
+        target: '?.browser.bemhtml.js',
+        filesTarget: '?.bemhtml.files',
+        sourceSuffixes: ['bemhtml', 'bemhtml.js']
+      }],
+      [techs.browserJs, {
+        includeYM: true
+      }],
+      [techs.fileMerge, {
+        target: '?.js',
+        sources: ['?.browser.js', '?.browser.bemhtml.js']
+      }],
       [techs.borschik, { source: '?.js', target: '?.min.js', minify: isProd }],
       [techs.borschik, { source: '?.css', target: '?.min.css', minify: isProd }]
     ]);

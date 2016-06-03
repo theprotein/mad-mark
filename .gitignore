@@ -9,6 +9,7 @@ node_modules/
 .enb/tmp/
 *bundles*/*/*.*
 !*bundles*/*/*.bemdecl.js
+*bundles*/*/*.*.bemdecl.js
 *pages*/*/*.*
 !*pages*/*/*.bemdecl.js
 !*pages*/.bem/*
