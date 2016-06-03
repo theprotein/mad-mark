@@ -1,8 +1,8 @@
 ({
-    shouldDeps: [
-        { mods: { type: ['single', 'list'] } },
-        'post',
-        'tags',
-        'link'
-    ]
+  shouldDeps: [
+    { mods: { type: ['single', 'list'] } },
+    'post',
+    'tags',
+    'link'
+  ]
 })

@@ -1,19 +1,19 @@
 {
-    "title": {
-        "ru": "Блог",
-        "en": "Blog"
-    },
-    "subtitle": {
-        "ru": "на стеке БЭМ-технологий",
-        "en": "on BEM stack"
+  "title": {
+    "ru": "Блог",
+    "en": "Blog"
+  },
+  "subtitle": {
+    "ru": "на стеке БЭМ-технологий",
+    "en": "on BEM stack"
 	},
-    "langs": ["ru", "en"],
-    "postsPerPage": 10,
-    "outputFolder": "output",
-    "users": [
-        {
-            "login": "tadatuta",
-            "email": "i@tadatuta.com"
-        }
-    ]
+  "langs": ["ru", "en"],
+  "postsPerPage": 10,
+  "outputFolder": "output",
+  "users": [
+    {
+      "login": "tadatuta",
+      "email": "i@tadatuta.com"
+    }
+  ]
 }

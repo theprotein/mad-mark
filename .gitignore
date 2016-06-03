@@ -6,10 +6,9 @@ node_modules/
 .svn
 
 # bem
-.bem/cache/
+.enb/tmp/
 *bundles*/*/*.*
 !*bundles*/*/*.bemdecl.js
-!*bundles*/.bem/*
 *pages*/*/*.*
 !*pages*/*/*.bemdecl.js
 !*pages*/.bem/*

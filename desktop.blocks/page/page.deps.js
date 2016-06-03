@@ -1,9 +1,10 @@
 ({
-    shouldDeps: [
-        { mods: { type: 'tags' } },
-        'link',
-        'header',
-        'content',
-        'footer'
-    ]
+  shouldDeps: [
+    { elems: ['meta', 'css', 'js'] },
+    { mods: { type: 'tags' } },
+    'link',
+    'header',
+    'content',
+    'footer'
+  ]
 })

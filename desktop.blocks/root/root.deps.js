@@ -1,4 +1,4 @@
 ({
-    mustDeps: ['i-bem'],
-    shouldDeps: ['gravatar']
+  mustDeps: ['i-bem'],
+  shouldDeps: ['page', 'gravatar']
 })
