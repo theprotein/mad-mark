@@ -17,4 +17,4 @@ node_modules/
 # blog
 !/content/config.json
 !/content/i18n.json
-output
+dist

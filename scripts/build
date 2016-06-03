@@ -1,0 +1,10 @@
+OUTPUT_DIR=./dist
+
+YENV=production enb make
+node scripts/grab.js
+node scripts/generate.js
+cp bundles/index/index.min.css $OUTPUT_DIR/
+cp bundles/index/index.min.js $OUTPUT_DIR/
+cp favicon.ico $OUTPUT_DIR/
+cp $OUTPUT_DIR/index.en.html $OUTPUT_DIR/index.html
+touch $OUTPUT_DIR/.nojekyll

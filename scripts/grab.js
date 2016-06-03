@@ -1,13 +1,14 @@
-var fs = require('fs'),
-  path = require('path'),
-  glob = require('glob'),
-  marked = require('meta-marked'),
-  config = require('../src/content/config.json'),
-  outputFolder = config.outputFolder || 'output',
-  mdFiles = glob.sync('src/content/*/*.md');
+'use strict';
 
-var results = mdFiles.map(function(file) {
-  var parsed = marked(fs.readFileSync(file, 'utf-8'));
+const fs = require('bluebird').promisifyAll(require('fs-extra'));
+const {join} = require('path');
+const marked = require('meta-marked');
+const config = require('../src/content/config.json');
+const mdFiles = require('glob').sync('src/content/*/*.md');
+
+const results = mdFiles.map(file => {
+  const md = fs.readFileSync(file, 'utf-8');
+  const parsed = marked(md);
 
   return {
     fileName: file.split('/').reverse()[0],
@@ -15,15 +16,8 @@ var results = mdFiles.map(function(file) {
     path: file,
     lang: file.split('.').reverse()[1],
     meta: parsed.meta,
-    content: parsed.html
+    content: parsed.html // TODO: posthtml?
   };
 });
 
-fs.mkdir(outputFolder, function(err) {
-  if (err && err.code != 'EEXIST') throw new Error(err);
-
-  fs.writeFile(path.join(outputFolder, 'data.json'),
-    JSON.stringify(results), function(err) {
-      if (err) throw new Error(err);
-    });
-});
+fs.outputFileSync(join('dist', 'data.json'), JSON.stringify(results));

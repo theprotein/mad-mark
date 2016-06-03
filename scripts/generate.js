@@ -1,10 +1,12 @@
-var path = require('path'),
-    fs = require('fs'),
-    bemtree = require('../bundles/index/index.bemtree.js').BEMTREE,
-    bemhtml = require('../bundles/index/index.bemhtml.js').BEMHTML;
+'use strict';
+
+const path = require('path');
+const fs = require('fs');
+const {BEMTREE} = require('../bundles/index/index.bemtree.js');
+const {BEMHTML} = require('../bundles/index/index.bemhtml.js');
 
 var config = require('../src/content/config.json'),
-    outputFolder = config.outputFolder || 'output',
+    outputFolder = 'dist',
     i18n = require('../src/content/i18n.json'),
     data = require('../' + outputFolder + '/data.json'),
     langs = data.reduce(function(prev, cur) {
@@ -64,7 +66,7 @@ langs.forEach(function(lang) {
       var totalPages = +(postsLength / postsPerPage).toFixed() +
                        (postsLength % postsPerPage ? 1 : 0);
 
-      var bemjson = bemtree.apply({
+      var bemjson = BEMTREE.apply({
         block: 'root',
         title: config.title && config.title[lang] || '',
         subtitle: config.subtitle && config.subtitle[lang] || '',
@@ -80,11 +82,11 @@ langs.forEach(function(lang) {
       });
 
       var p = path.resolve('./' + outputFolder + '/blog' + (idx ? '-' + idx : '') + '.' + lang + '.html');
-      fs.writeFileSync(p, bemhtml.apply(bemjson));
+      fs.writeFileSync(p, BEMHTML.apply(bemjson));
     });
 
     // генерация страницы всех тегов
-    // bemtree.apply({
+    // BEMTREE.apply({
     //     block: 'root',
     //     title: config.title[lang],
     //     mods: { type: 'tags' },
@@ -97,13 +99,13 @@ langs.forEach(function(lang) {
     // })
     // .then(function(bemjson) {
     //     var p = path.resolve('../' + outputFolder + '/tags.' + lang + '.html');
-    //     fs.writeFileSync(p, bemhtml.apply(bemjson));
+    //     fs.writeFileSync(p, BEMHTML.apply(bemjson));
     // });
 
     // генерация индексов по тегам
     tags[lang] && tags[lang].forEach(function(tag) {
       var p = path.resolve('./' + outputFolder + '/tag-'+ tag + '.' + lang + '.html');
-      var bemjson = bemtree.apply({
+      var bemjson = BEMTREE.apply({
         block: 'root',
         title: config.title && config.title[lang] || '',
         subtitle: config.subtitle && config.subtitle[lang] || '',
@@ -113,14 +115,14 @@ langs.forEach(function(lang) {
         lang: lang,
         user: user
       });
-      fs.writeFileSync(p, bemhtml.apply(bemjson));
+      fs.writeFileSync(p, BEMHTML.apply(bemjson));
     });
 
     // генерация каждой конкретной страницы
     langPages.concat(langPosts).forEach(function(page) {
       page.meta = page.meta || {};
 
-      var bemjson = bemtree.apply({
+      var bemjson = BEMTREE.apply({
         block: 'root',
         title: config.title && config.title[lang] || '',
         subtitle: config.subtitle && config.subtitle[lang] || '',
@@ -129,6 +131,6 @@ langs.forEach(function(lang) {
         user: user
       });
 
-      fs.writeFileSync(path.join(outputFolder, page.fileName.split('.')[0] + '.' + lang + '.html'), bemhtml.apply(bemjson));
+      fs.writeFileSync(path.join(outputFolder, page.fileName.split('.')[0] + '.' + lang + '.html'), BEMHTML.apply(bemjson));
     });
 });

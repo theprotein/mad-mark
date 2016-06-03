@@ -15,13 +15,13 @@ nodemon({
 
 bs.init({
   server: {
-    baseDir: './output'
+    baseDir: './dist'
   },
   files: [
-    './output/*.css',
-    './output/*.js',
-    './output/*.html',
-    './output/*.*.html'
+    './dist/*.css',
+    './dist/*.js',
+    './dist/*.html',
+    './dist/*.*.html'
   ],
   tunnel: false,
   online: false,

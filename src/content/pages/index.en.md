@@ -1,4 +1,4 @@
-Morda Test
+Morda
 =====
 
 Content of main page.
