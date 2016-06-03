@@ -14,7 +14,6 @@ const tags = getTags(data);
 const user = config.users[0];
 
 langs.forEach(lang => {
-
   const contentByLang = getContentByLang(data)[lang];
 
   Object.keys(contentByLang).forEach(layout => {
@@ -90,14 +89,6 @@ langs.forEach(lang => {
   // });
 
 });
-
-// get from config???
-// function getLangs(data) {
-//   return data.reduce((prev, cur) => {
-//     prev.indexOf(cur.lang) < 0 && prev.push(cur.lang);
-//     return prev;
-//   }, []);
-// }
 
 function getTags(data) {
   return data.reduce((prev, cur) => {
