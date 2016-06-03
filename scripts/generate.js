@@ -1,12 +1,12 @@
 var path = require('path'),
     fs = require('fs'),
-    bemtree = require('./bundles/index/index.bemtree.js').BEMTREE,
-    bemhtml = require('./bundles/index/index.bemhtml.js').BEMHTML;
+    bemtree = require('../bundles/index/index.bemtree.js').BEMTREE,
+    bemhtml = require('../bundles/index/index.bemhtml.js').BEMHTML;
 
-var config = require('./src/content/config.json'),
+var config = require('../src/content/config.json'),
     outputFolder = config.outputFolder || 'output',
-    i18n = require('./src/content/i18n.json'),
-    data = require('./' + outputFolder + '/data.json'),
+    i18n = require('../src/content/i18n.json'),
+    data = require('../' + outputFolder + '/data.json'),
     langs = data.reduce(function(prev, cur) {
       prev.indexOf(cur.lang) < 0 && prev.push(cur.lang);
       return prev;
@@ -79,7 +79,7 @@ langs.forEach(function(lang) {
         }
       });
 
-      var p = path.resolve('./' + outputFolder + '/blog' + (idx ? '-' + idx : '') + '.' + lang + '.html');
+      var p = path.resolve('../' + outputFolder + '/blog' + (idx ? '-' + idx : '') + '.' + lang + '.html');
       fs.writeFileSync(p, bemhtml.apply(bemjson));
     });
 
@@ -96,13 +96,13 @@ langs.forEach(function(lang) {
     //     }
     // })
     // .then(function(bemjson) {
-    //     var p = path.resolve('./' + outputFolder + '/tags.' + lang + '.html');
+    //     var p = path.resolve('../' + outputFolder + '/tags.' + lang + '.html');
     //     fs.writeFileSync(p, bemhtml.apply(bemjson));
     // });
 
     // генерация индексов по тегам
     tags[lang] && tags[lang].forEach(function(tag) {
-      var p = path.resolve('./' + outputFolder + '/tag-'+ tag + '.' + lang + '.html');
+      var p = path.resolve('../' + outputFolder + '/tag-'+ tag + '.' + lang + '.html');
       var bemjson = bemtree.apply({
         block: 'root',
         title: config.title && config.title[lang] || '',

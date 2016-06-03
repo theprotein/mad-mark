@@ -38,7 +38,7 @@
     "postcss-url": "^5.1.2"
   },
   "scripts": {
-    "build": "enb make && node grab.js && node generate.js && cp bundles/index/index.min.css output/ && cp bundles/index/index.min.js output/",
+    "build": "enb make && node scripts/grab.js && node scripts/generate.js && cp bundles/index/index.min.css output/ && cp bundles/index/index.min.js output/",
     "start": "npm run build"
   },
   "private": true
