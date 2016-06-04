@@ -8,7 +8,7 @@
     "en": "on BEM stack"
 	},
   "langs": ["ru", "en"],
-  "defaultLang": ["en"],
+  "defaultLang": "en",
   "layouts": {
     "blog": {
       "paginate": 10
