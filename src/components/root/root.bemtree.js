@@ -12,10 +12,6 @@ block('root').def()(function() {
     layout = mods.layout,
     title = (meta.title ? meta.title + ' — ' : '') + ctx.title || '';
 
-  if(layout === 'tags') {
-    title = ctx.i18n[this._lang].tags + ' — ' + ctx.title; // TODO: capitalize
-  }
-
   return applyCtx({
     block: 'page',
     title: title,

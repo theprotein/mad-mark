@@ -1,6 +1,6 @@
 {
   "author": "",
-  "name": "static-blog-on-bem",
+  "name": "bb",
   "version": "1.0.0",
   "repository": {
     "type": "git",
@@ -9,6 +9,7 @@
   "engines": {
     "node": ">=6"
   },
+  "static": "public",
   "dependencies": {
     "glob": "^4.0.0",
     "lodash": "^2.4.1",
@@ -42,8 +43,7 @@
     "postcss-url": "^5.1.2"
   },
   "scripts": {
-    "build": "source scripts/build",
-    "start": "node scripts/server.js"
-  },
-  "private": true
+    "build": "node src/scripts/build.js",
+    "start": "node src/scripts/server.js"
+  }
 }

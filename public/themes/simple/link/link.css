@@ -1,0 +1,10 @@
+a,
+.link {
+  color: #444;
+  text-decoration: none;
+}
+
+a:hover,
+.link:hover {
+  color: #09b;
+}

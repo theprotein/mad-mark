@@ -1,4 +1,11 @@
-var techs = {
+'use strict';
+
+const {join, resolve} = require('path');
+const {INPUT, OUTPUT} = require('../tmp.json');
+const userConfig = require(join(INPUT, 'config.json'));
+const root = OUTPUT.replace(userConfig.output, '');
+
+const techs = {
   fileProvider: require('enb/techs/file-provider'),
   fileMerge: require('enb/techs/file-merge'),
   borschik: require('enb-borschik/techs/borschik'),
@@ -6,25 +13,23 @@ var techs = {
   browserJs: require('enb-js/techs/browser-js'),
   bemtree: require('enb-bemxjst/techs/bemtree'),
   bemhtml: require('enb-bemxjst/techs/bemhtml')
-},
-enbBemTechs = require('enb-bem-techs'),
-levels = [
-  'node_modules/bem-core/common.blocks',
-  'node_modules/bem-core/desktop.blocks',
-  'node_modules/bem-components/common.blocks',
-  'node_modules/bem-components/desktop.blocks',
-  'node_modules/bem-components/design/common.blocks',
-  'node_modules/bem-components/design/desktop.blocks',
-  'node_modules/bem-grid/common.blocks',
-  'src/layouts',
-  'src/components',
-  'src/themes/simple'
+};
+const enbBemTechs = require('enb-bem-techs');
+const levels = [
+  join(root, 'node_modules/bem-core/common.blocks'),
+  join(root, 'node_modules/bem-core/desktop.blocks'),
+  join(root, 'node_modules/bem-components/common.blocks'),
+  join(root, 'node_modules/bem-components/desktop.blocks'),
+  join(root, 'node_modules/bem-grid/common.blocks'),
+  join(root, !userConfig.bb ? 'node_modules/bb' : '', 'src/layouts'),
+  join(root, !userConfig.bb ? 'node_modules/bb' : '', 'src/components'),
+  `${join(INPUT, 'themes', userConfig.theme)}`
 ];
 
 module.exports = function(config) {
-  var isProd = process.env.YENV === 'production';
+  const isProd = process.env.YENV === 'production';
 
-  config.nodes('bundles/*', function(nodeConfig) {
+  config.nodes(`${join('bundles', '*')}`, nodeConfig => {
     nodeConfig.addTechs([
       [enbBemTechs.levels, { levels: levels }],
       [techs.fileProvider, { target: '?.bemdecl.js' }],

@@ -1,5 +1,5 @@
 ({
   shouldDeps: [
-    'link'
+    { block: 'link' }
   ]
-})
+});

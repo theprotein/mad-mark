@@ -1,3 +1,0 @@
-({
-	shouldDeps: ['language-switcher', 'avatar']
-})
