@@ -12,12 +12,11 @@ const techs = {
   borschik: require('enb-borschik/techs/borschik'),
   postcss: require('enb-postcss/techs/enb-postcss'),
   browserJs: require('enb-js/techs/browser-js'),
-  bemtree: require('enb-bemxjst/techs/bemtree'),
   bemhtml: require('enb-bemxjst/techs/bemhtml')
 };
 const enbBemTechs = require('enb-bem-techs');
 const levels = [].concat(
-  require('bb').levels.map(path => {
+  require('bemark').levels.map(path => {
     return join(CWD, path);
   }),
   `${join(INPUT, 'themes', userConfig.theme)}`
@@ -83,12 +82,11 @@ module.exports = function(config) {
         target: '.tmp.js',
         sources: ['.tmp.browser.js', '.tmp.browser.bemhtml.js']
       }],
-      [techs.bemtree, { sourceSuffixes: ['bemtree', 'bemtree.js'] }],
       [techs.bemhtml, { sourceSuffixes: ['bemhtml', 'bemhtml.js'] }],
       [techs.borschik, { source: '.tmp.js', target: '?.min.js', minify: isProd }],
       [techs.borschik, { source: '.tmp.css', target: '?.min.css', minify: isProd }]
     ]);
 
-    nodeConfig.addTargets(['?.bemtree.js', '?.bemhtml.js', '?.min.css', '?.min.js']);
+    nodeConfig.addTargets(['?.bemhtml.js', '?.min.css', '?.min.js']);
   });
 };
