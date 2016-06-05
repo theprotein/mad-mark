@@ -1,6 +1,6 @@
 {
   "name": "bb",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "bin": {
     "bb": "./bin/bb"
   },
@@ -45,7 +45,6 @@
     "winston": "^2.2.0"
   },
   "scripts": {
-    "build": "bb build -i public -o dist",
-    "start": "node src/scripts/server.js"
+    "build": "bb build -i public -o dist"
   }
 }
