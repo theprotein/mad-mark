@@ -9,6 +9,5 @@ exports.levels = [
   join('node_modules', 'bem-components', 'common.blocks'),
   join('node_modules', 'bem-components', 'desktop.blocks'),
   join('node_modules', 'bem-grid', 'common.blocks'),
-  join('node_modules', 'bb', 'src', 'layouts'),
-  join('node_modules', 'bb', 'src', 'components')
+  join('node_modules', 'bemark', 'src', 'components')
 ];
