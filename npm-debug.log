@@ -1,0 +1,138 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/awinogradov/.nvm/versions/node/v6.2.0/bin/node',
+1 verbose cli   '/Users/awinogradov/.nvm/versions/node/v6.2.0/bin/npm',
+1 verbose cli   'publish',
+1 verbose cli   '.' ]
+2 info using npm@3.8.9
+3 info using node@v6.2.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/awinogradov/Sources/bb',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/awinogradov/.npm/bb/0.0.3/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/awinogradov/.npm correctMkdir not in flight; initializing
+10 info lifecycle bb@0.0.3~prepublish: bb@0.0.3
+11 silly lifecycle bb@0.0.3~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/awinogradov/.npm/bb/0.0.3/package.tgz',
+12 verbose tar pack   '/Users/awinogradov/Sources/bb' ]
+13 verbose tarball /Users/awinogradov/.npm/bb/0.0.3/package.tgz
+14 verbose folder /Users/awinogradov/Sources/bb
+15 verbose addLocalTarball adding from inside cache /Users/awinogradov/.npm/bb/0.0.3/package.tgz
+16 verbose correctMkdir /Users/awinogradov/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd bb@0.0.3
+18 verbose afterAdd /Users/awinogradov/.npm/bb/0.0.3/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/awinogradov/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/awinogradov/.npm/bb/0.0.3/package/package.json written
+21 silly publish { name: 'bb',
+21 silly publish   version: '0.0.3',
+21 silly publish   bin: { bb: './bin/bb' },
+21 silly publish   repository:
+21 silly publish    { type: 'git',
+21 silly publish      url: 'git+ssh://git@github.com/awinogradov/bb.git' },
+21 silly publish   engines: { node: '>=6' },
+21 silly publish   devDependencies: {},
+21 silly publish   dependencies:
+21 silly publish    { 'bem-components': '^3.0.0',
+21 silly publish      'bem-core': '^3.0.1',
+21 silly publish      'bem-grid': '^2.3.3',
+21 silly publish      bluebird: '^3.4.0',
+21 silly publish      'browser-sync': '^2.12.10',
+21 silly publish      coa: '^1.0.1',
+21 silly publish      enb: '^1.3.0',
+21 silly publish      'enb-bem-techs': '^2.2.1',
+21 silly publish      'enb-bemxjst': '^6.5.0',
+21 silly publish      'enb-borschik': '^2.4.0',
+21 silly publish      'enb-js': '^1.1.0',
+21 silly publish      'enb-postcss': '^0.2.1',
+21 silly publish      'fs-extra': '^0.30.0',
+21 silly publish      glob: '^4.0.0',
+21 silly publish      lodash: '^2.4.1',
+21 silly publish      lost: '^6.8.0',
+21 silly publish      'meta-marked': '^0.3.1',
+21 silly publish      nodemon: '^1.9.2',
+21 silly publish      postcss: '^5.0.21',
+21 silly publish      'postcss-browser-reporter': '^0.5.0',
+21 silly publish      'postcss-cssnext': '^2.6.0',
+21 silly publish      'postcss-each': '^0.9.3',
+21 silly publish      'postcss-font-magician': '^1.4.0',
+21 silly publish      'postcss-import': '^8.1.2',
+21 silly publish      'postcss-mixins': '^4.0.2',
+21 silly publish      'postcss-nested': '^1.0.0',
+21 silly publish      'postcss-reporter': '^1.3.3',
+21 silly publish      'postcss-simple-vars': '^2.0.0',
+21 silly publish      'postcss-url': '^5.1.2',
+21 silly publish      winston: '^2.2.0' },
+21 silly publish   scripts: { build: 'bb build -i public -o dist' },
+21 silly publish   readme: '# BB\n\n## Installation\n\nRun in terminal\n\n```bash\ngit clone https://github.com/tadatuta/bb.git\ncd bb\nnpm i\n```\n\n## Rebuild and start the server\n\n```bash\nnpm start\n```\n\n## Rebuild content\n\n```bash\nnpm run build\n```\n\n## Content\n\nTo generate static pages put markdown files into `content/pages` with `lang.md` suffixes (e.g. `index.en.md`).\n\nTo generate blog roll put markdowns into `content/blog` folder.\nYou may use yaml header to set title and tags like this:\n\n```\n---\ntitle: Post title\ntags:\n    - tag1\n    - tag2\n    - tag3\n---\n```\n\nOpen http://localhost:8080/ in browser to see the result.\n',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: '60f90aa79cbfc116e9e94f2b31a80e5fe68e5d12',
+21 silly publish   description: '## Installation',
+21 silly publish   bugs: { url: 'https://github.com/awinogradov/bb/issues' },
+21 silly publish   homepage: 'https://github.com/awinogradov/bb#readme',
+21 silly publish   _id: 'bb@0.0.3',
+21 silly publish   _shasum: '69619d51dfc1a2caa0b29683bd06740c12412220',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name bb
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'bb',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   name: 'bb',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/bb
+28 verbose publish registryBase https://registry.npmjs.org/
+29 silly publish uploading /Users/awinogradov/.npm/bb/0.0.3/package.tgz
+30 verbose request uri https://registry.npmjs.org/bb
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 7:48:44 PM
+33 verbose request using bearer token for auth
+34 verbose request id 6408f2e9079546ef
+35 http request PUT https://registry.npmjs.org/bb
+36 http 403 https://registry.npmjs.org/bb
+37 verbose headers { 'content-type': 'application/json',
+37 verbose headers   'cache-control': 'max-age=300',
+37 verbose headers   'content-length': '96',
+37 verbose headers   'accept-ranges': 'bytes',
+37 verbose headers   date: 'Sun, 05 Jun 2016 16:48:45 GMT',
+37 verbose headers   via: '1.1 varnish',
+37 verbose headers   connection: 'keep-alive',
+37 verbose headers   'x-served-by': 'cache-fra1220-FRA',
+37 verbose headers   'x-cache': 'MISS',
+37 verbose headers   'x-cache-hits': '0',
+37 verbose headers   'x-timer': 'S1465145325.226921,VS0,VE721',
+37 verbose headers   vary: 'Accept-Encoding' }
+38 verbose request invalidating /Users/awinogradov/.npm/registry.npmjs.org/bb on PUT
+39 error publish Failed PUT 403
+40 verbose stack Error: you do not have permission to publish "bb". Are you logged in as the correct user? : bb
+40 verbose stack     at makeError (/Users/awinogradov/.nvm/versions/node/v6.2.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+40 verbose stack     at CachingRegistryClient.<anonymous> (/Users/awinogradov/.nvm/versions/node/v6.2.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+40 verbose stack     at Request._callback (/Users/awinogradov/.nvm/versions/node/v6.2.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+40 verbose stack     at Request.self.callback (/Users/awinogradov/.nvm/versions/node/v6.2.0/lib/node_modules/npm/node_modules/request/request.js:200:22)
+40 verbose stack     at emitTwo (events.js:106:13)
+40 verbose stack     at Request.emit (events.js:191:7)
+40 verbose stack     at Request.<anonymous> (/Users/awinogradov/.nvm/versions/node/v6.2.0/lib/node_modules/npm/node_modules/request/request.js:1067:10)
+40 verbose stack     at emitOne (events.js:101:20)
+40 verbose stack     at Request.emit (events.js:188:7)
+40 verbose stack     at IncomingMessage.<anonymous> (/Users/awinogradov/.nvm/versions/node/v6.2.0/lib/node_modules/npm/node_modules/request/request.js:988:12)
+41 verbose statusCode 403
+42 verbose pkgid bb
+43 verbose cwd /Users/awinogradov/Sources/bb
+44 error Darwin 15.5.0
+45 error argv "/Users/awinogradov/.nvm/versions/node/v6.2.0/bin/node" "/Users/awinogradov/.nvm/versions/node/v6.2.0/bin/npm" "publish" "."
+46 error node v6.2.0
+47 error npm  v3.8.9
+48 error code E403
+49 error you do not have permission to publish "bb". Are you logged in as the correct user? : bb
+50 error If you need help, you may report this error at:
+50 error     <https://github.com/npm/npm/issues>
+51 verbose exit [ 1, true ]

@@ -1,12 +1,12 @@
 {
-  "name": "bb",
+  "name": "bemark",
   "version": "0.0.3",
   "bin": {
     "bb": "./bin/bb"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:awinogradov/bb.git"
+    "url": "git@github.com:awinogradov/bemark.git"
   },
   "engines": {
     "node": ">=6"
