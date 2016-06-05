@@ -1,9 +1,10 @@
 'use strict';
 
-const {join, resolve} = require('path');
-const {INPUT, OUTPUT} = require('../tmp.json');
+const {join, resolve, basename} = require('path');
+const INPUT = process.env.BBIN;
+const OUTPUT = process.env.BBOUT;
+const CWD = OUTPUT.replace(basename(OUTPUT), '');
 const userConfig = require(join(INPUT, 'config.json'));
-const root = OUTPUT.replace(userConfig.output, '');
 
 const techs = {
   fileProvider: require('enb/techs/file-provider'),
@@ -16,13 +17,13 @@ const techs = {
 };
 const enbBemTechs = require('enb-bem-techs');
 const levels = [
-  join(root, 'node_modules/bem-core/common.blocks'),
-  join(root, 'node_modules/bem-core/desktop.blocks'),
-  join(root, 'node_modules/bem-components/common.blocks'),
-  join(root, 'node_modules/bem-components/desktop.blocks'),
-  join(root, 'node_modules/bem-grid/common.blocks'),
-  join(root, !userConfig.bb ? 'node_modules/bb' : '', 'src/layouts'),
-  join(root, !userConfig.bb ? 'node_modules/bb' : '', 'src/components'),
+  join(CWD, 'node_modules/bem-core/common.blocks'),
+  join(CWD, 'node_modules/bem-core/desktop.blocks'),
+  join(CWD, 'node_modules/bem-components/common.blocks'),
+  join(CWD, 'node_modules/bem-components/desktop.blocks'),
+  join(CWD, 'node_modules/bem-grid/common.blocks'),
+  join(CWD, !userConfig.bb ? 'node_modules/bb' : '', 'src/layouts'),
+  join(CWD, !userConfig.bb ? 'node_modules/bb' : '', 'src/components'),
   `${join(INPUT, 'themes', userConfig.theme)}`
 ];
 

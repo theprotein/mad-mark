@@ -1,7 +1,9 @@
 {
-  "author": "",
   "name": "bb",
-  "version": "1.0.0",
+  "version": "0.0.1",
+  "bin": {
+    "bb": "./bin/bb"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:awinogradov/bb.git"
@@ -9,13 +11,13 @@
   "engines": {
     "node": ">=6"
   },
-  "static": "public",
+  "devDependencies": {
+  },
   "dependencies": {
+    "coa": "^1.0.1",
     "glob": "^4.0.0",
     "lodash": "^2.4.1",
-    "meta-marked": "^0.3.1"
-  },
-  "devDependencies": {
+    "meta-marked": "^0.3.1",
     "bem-components": "^3.0.0",
     "bem-core": "^3.0.1",
     "bem-grid": "^2.3.3",
