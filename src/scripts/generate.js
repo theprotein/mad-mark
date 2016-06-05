@@ -1,7 +1,9 @@
 'use strict';
 
-const {join, resolve} = require('path');
-const fs = require('bluebird').promisifyAll(require('fs-extra'));
+const {join} = require('path');
+const fs = require('fs-extra');
+
+const log = require('../lib/log');
 
 module.exports = function (userConfig, INPUT, OUTPUT) {
   const {BEMTREE} = require(join(OUTPUT, 'bundles', 'index', 'index.bemtree.js'));
@@ -9,92 +11,119 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
 
   const i18n = require(join(INPUT, 'i18n.json'));
   const data = require(join(OUTPUT, 'data.json'));
-  const tags = getTags(data);
-  const user = userConfig.users[0];
 
+  log.verbose('resolve pages by langs', userConfig.langs);
   userConfig.langs.forEach(lang => {
-    const contentByLang = getContentByLang(data)[lang];
+    const normalisedContent = getContentByLang(data);
+    const contentByLang = normalisedContent[lang];
 
-    Object.keys(contentByLang).forEach(layout => {
-      const contentByLayout = contentByLang[layout];
+    if(contentByLang) {
+      const layouts = Object.keys(contentByLang);
+      log.verbose('resolve pages by layouts', layouts);
+      layouts.forEach(layout => {
+        const contentByLayout = contentByLang[layout];
 
-      const paginate = userConfig.layouts[layout] && userConfig.layouts[layout].paginate;
-      if (paginate) {
-        let paginatedPosts = [];
-        let totalPages = calcPages(contentByLayout.length, paginate);
+        log.verbose('check pagination for layout', layout);
+        const paginate = userConfig.layouts && userConfig.layouts[layout] && userConfig.layouts[layout].paginate;
+        if (paginate) {
+          log.verbose(`layout '${layout}' need pagination`);
+          let paginatedContent = [];
+          let totalPages = calcPages(contentByLayout.length, paginate);
 
-        for (let i = 0, curPage = 0; i < contentByLayout.length; i++) {
-          i > 0 && (i % paginate == 0) && curPage++;
-          paginatedPosts[curPage] = (paginatedPosts[curPage] || []).concat(contentByLayout[i]);
+          for (let i = 0, curPage = 0; i < contentByLayout.length; i++) {
+            i > 0 && (i % paginate == 0) && curPage++;
+            paginatedContent[curPage] = (paginatedContent[curPage] || []).concat(contentByLayout[i]);
+          }
+
+          log.verbose('resove pages by paginated content', totalPages);
+          paginatedContent.forEach((page, idx) => {
+
+            log.verbose('generate html for page', page.name, idx);
+            const bemjson = BEMTREE.apply({
+              block: 'root',
+              mods: { layout: layout },
+              title: i18n.title && i18n.title[lang] || '',
+              data: page,
+              lang: lang,
+              pagination: {
+                totalPages: totalPages,
+                idx: idx,
+                isLast: totalPages == idx + 1,
+                needPagination: totalPages > 1
+              }
+            });
+
+            const pagePath = join(OUTPUT, layout, `index${resolvePageNum(idx)}${resolveLang(lang, userConfig)}.html`);
+            log.verbose('write html to fs', pagePath);
+            fs.outputFileSync(pagePath, BEMHTML.apply(bemjson));
+          });
+        } else {
+          log.verbose(`no pagination for layout '${layout}'`);
         }
 
-        paginatedPosts.forEach((page, idx) => {
+        log.verbose('resolve pages by layout', layout);
+        contentByLayout.forEach(page => {
+          page.meta = page.meta || {};
+
+          log.verbose('generate html for page', page.name);
           const bemjson = BEMTREE.apply({
             block: 'root',
             mods: { layout: layout },
-            title: userConfig.title && userConfig.title[lang] || '',
-            subtitle: userConfig.subtitle && userConfig.subtitle[lang] || '',
+            title: i18n.title && i18n.title[lang] || '',
             data: page,
-            lang: lang,
-            user: user,
-            pagination: {
-              totalPages: totalPages,
-              idx: idx,
-              isLast: totalPages == idx + 1,
-              needPagination: totalPages > 1
-            }
+            lang: lang
           });
 
-          const pagePath = join(OUTPUT, layout, `index${resolvePageNum(idx)}${resolveLang(lang, userConfig)}.html`);
+          const pagePath = join(OUTPUT, layout, `${page.name}${resolveLang(lang, userConfig)}.html`);
+          log.verbose('write html to fs', pagePath);
           fs.outputFileSync(pagePath, BEMHTML.apply(bemjson));
         });
-      }
 
-      contentByLayout.forEach(page => {
-        page.meta = page.meta || {};
+        log.verbose('resolve pages by tags');
+        const tags = getTags(data);
+        if(tags[lang]) {
+          tags[lang].forEach(tag => {
+            log.verbose('generate html for tag', tag);
+            const bemjson = BEMTREE.apply({
+              block: 'root',
+              mods: { layout: 'tags' },
+              title: i18n.title && i18n.title[lang] || '',
+              data: contentByLayout.filter(post => (
+                post.meta && post.meta.tags && post.meta.tags.indexOf(tag) > -1
+              )),
+              lang: lang
+            });
 
-        const bemjson = BEMTREE.apply({
-          block: 'root',
-          mods: { layout: layout },
-          title: userConfig.title && userConfig.title[lang] || '',
-          subtitle: userConfig.subtitle && userConfig.subtitle[lang] || '',
-          data: page,
-          lang: lang,
-          user: user
-        });
-
-        const pagePath = join(OUTPUT, layout, `${page.name}${resolveLang(lang, userConfig)}.html`);
-        fs.outputFileSync(pagePath, BEMHTML.apply(bemjson));
+            const pagePath = join(OUTPUT, 'tags', `tag-${tag}.${lang}.html`);
+            log.verbose('write html to fs', pagePath);
+            fs.outputFileSync(pagePath, BEMHTML.apply(bemjson));
+          });
+        } else {
+          log.verbose(`no tags for layout '${layout}'`);
+        }
       });
-
-      tags[lang] && tags[lang].forEach(tag => {
-        const bemjson = BEMTREE.apply({
-          block: 'root',
-          mods: { layout: 'tags' },
-          title: userConfig.title && userConfig.title[lang] || '',
-          subtitle: userConfig.subtitle && userConfig.subtitle[lang] || '',
-          data: contentByLayout.filter(post => (
-            post.meta && post.meta.tags && post.meta.tags.indexOf(tag) > -1
-          )),
-          lang: lang,
-          user: user
-        });
-
-        const pagePath = join(OUTPUT, 'tags', `tag-${tag}.${lang}.html`);
-        fs.outputFileSync(pagePath, BEMHTML.apply(bemjson));
-      });
-
-    });
-
+    }
   });
 }
-
-function resolvePageNum(idx) {
-  return idx ? `-${idx}` : '';
+/**
+ * Resolve suffix by page number
+ *
+ * @param  {Number} id
+ * @return {String}
+ */
+function resolvePageNum(id) {
+  return id ? `-${id}` : '';
 }
-
+/**
+ * Resolve suffix by lang. Default lang is first from config.langs.
+ * If lang is default we shoudn't add suffix like *.en.md
+ *
+ * @param  {String} lang
+ * @param  {Object} config
+ * @return {String}
+ */
 function resolveLang(lang, config) {
-  return lang === config.defaultLang ? '' : `.${lang}`;
+  return lang === config.langs[0] ? '' : `.${lang}`;
 }
 
 function getTags(data) {
@@ -107,20 +136,23 @@ function getTags(data) {
     return prev;
   }, {});
 }
-
+/**
+ * Calculate pages for pagination
+ *
+ * @param  {Number} postsLength
+ * @param  {Number} postsPerPage
+ * @return {Number}
+ */
 function calcPages(postsLength, postsPerPage) {
   return +(postsLength / postsPerPage).toFixed() + (postsLength % postsPerPage ? 1 : 0);
 }
-
 /**
- * getContentByLang - description
+ * Structure content by language and layout
  *
  * @param  {Array} data
  * @return {Object} { en: { page: [item, item], post: [item, item] } }
  */
 function getContentByLang(data) {
-  let posts = [];
-  let pages = [];
   let result = {};
 
   data.forEach(item => {

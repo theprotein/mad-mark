@@ -16,16 +16,12 @@ const techs = {
   bemhtml: require('enb-bemxjst/techs/bemhtml')
 };
 const enbBemTechs = require('enb-bem-techs');
-const levels = [
-  join(CWD, 'node_modules/bem-core/common.blocks'),
-  join(CWD, 'node_modules/bem-core/desktop.blocks'),
-  join(CWD, 'node_modules/bem-components/common.blocks'),
-  join(CWD, 'node_modules/bem-components/desktop.blocks'),
-  join(CWD, 'node_modules/bem-grid/common.blocks'),
-  join(CWD, !userConfig.bb ? 'node_modules/bb' : '', 'src/layouts'),
-  join(CWD, !userConfig.bb ? 'node_modules/bb' : '', 'src/components'),
+const levels = [].concat(
+  require('bb').levels.map(path => {
+    return join(CWD, path);
+  }),
   `${join(INPUT, 'themes', userConfig.theme)}`
-];
+);
 
 module.exports = function(config) {
   const isProd = process.env.YENV === 'production';

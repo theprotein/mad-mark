@@ -4,12 +4,17 @@ const fs = require('bluebird').promisifyAll(require('fs-extra'));
 const {join} = require('path');
 const marked = require('meta-marked');
 
+const log = require('../lib/log');
+
 module.exports = function (userConfig, INPUT, OUTPUT) {
+  log.verbose('grab *.md files from', INPUT);
+  const dataPath = join(OUTPUT, 'data.json');
   const mdFiles = require('glob').sync(join(INPUT, '*', '*.md'));
 
   const results = mdFiles.map(file => {
+    log.verbose('compile', file);
     const md = fs.readFileSync(file, 'utf-8');
-    const parsed = marked(md);
+    const compiled = marked(md);
     const fileName = file.split('/').reverse()[0];
 
     return {
@@ -18,10 +23,11 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
       layout: file.split('/').reverse()[1],
       path: file,
       lang: file.split('.').reverse()[1],
-      meta: parsed.meta,
-      content: parsed.html // TODO: posthtml and get plugins by layout
+      meta: compiled.meta,
+      content: compiled.html // TODO: posthtml and get plugins by layout
     };
   });
 
-  fs.outputFileSync(join(OUTPUT, 'data.json'), JSON.stringify(results));
+  log.verbose('collect data to', dataPath);
+  fs.outputFileSync(dataPath, JSON.stringify(results));
 }
