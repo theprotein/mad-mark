@@ -4,13 +4,13 @@ Tool for static sites generation based on Markdown and [bem-xjst](https://github
 
 ## Installation
 
-> npm i --save-dev bemark
+> npm i -g --save-dev bemark
 
 ## Usage
 
 Bemark can work standalone and in existing project like cli-tool for static content generation. Documentation for any project will be the best example. Bemark can help to build local and online documentation in easy way. Also you can write blog, artciles and anything from your mind ;)
 
-## Init 
+## Init
 
 You should choose cwd directory for your content in Markdown, output directory for generated content and languages for i18n. Bemark support i18n as well. First language will be used as default.
 
@@ -19,7 +19,7 @@ You should choose cwd directory for your content in Markdown, output directory f
 After that Bemark generate base project structure in `static` folder:
 
 ```
-- static 
+- static
   - content
     - articles
       - index.en.md
@@ -39,7 +39,7 @@ You can build all content in two ways. Firstly, it's simple command:
 
 > bemark build -i static
 
-After that you can open generated content as html files `open dist/index.html`. 
+After that you can open generated content as html files `open dist/index.html`.
 You can see generated folder structure below:
 
 ```
@@ -49,7 +49,7 @@ You can see generated folder structure below:
     - index.ru.html
   - css
     - styles.min.css
-  - js 
+  - js
     - scripts.min.js
   - .nojekyll
   - index.html
@@ -79,7 +79,7 @@ tags:
 # Markdown content
 ```
 
-Every markdown page will be wrapped in layout wich based on [bemhtml](https://en.bem.info/technology/bemhtml/v2/intro) templates for [bem-xjst](https://github.com/bem/bem-xjst) engine. 
+Every markdown page will be wrapped in layout wich based on [bemhtml](https://en.bem.info/technology/bemhtml/v2/intro) templates for [bem-xjst](https://github.com/bem/bem-xjst) engine.
 
 ## Layouts
 
@@ -189,7 +189,7 @@ module.exports = {
 };
 ```
 
-You can use this data in your templates without any problem. 
+You can use this data in your templates without any problem.
 
 ## Helpers
 
@@ -198,14 +198,14 @@ When write components or layouts you may want extra information about your markd
 You can get information below in any place of your templates by call `this._*`, ex `this._name`, `this._config`:
 
 ``` js
-{ 
-  _tags, // Array - parsed tags for all pages from meta in yml 
+{
+  _tags, // Array - parsed tags for all pages from meta in yml
   _pagination, // Object - data for pagination
   _paginatable, // Boolean - need pagination
   _config, // Object - project config
   _multilang, // Boolean - many langs
   _name, // String - page name
-  _meta, // Object - parsed meta from yml in Markdown file 
+  _meta, // Object - parsed meta from yml in Markdown file
   _layout, // String - layout name
   _i18n, // Object - i18n translations
   _lang, // String - page lang
@@ -254,7 +254,24 @@ block('header')(
 );
 ```
 
-## Assets
+## Markdown transform
+
+By default Bemark transform Markdown to posthtml-tree and apply plugins for semantic
+and bemjson content. You can use custom posthtml-plugins by config:
+
+``` js
+module.exports = {
+  ...
+  posthtmlPlugins: [].concat(
+    require('bemark').posthtmlPlugins,
+    require('custom-posthtml-plugin')
+  )
+};
+```
+
+Browse [PostHTML plugins directory](https://github.com/posthtml/posthtml#plugins) to find them all ;)
+
+## CSS transform
 
 You can write CSS for [PostCSS](https://github.com/postcss/postcss). List of available plugins:
 

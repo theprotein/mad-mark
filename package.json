@@ -44,5 +44,6 @@
     "postcss-url": "^5.1.2",
     "posthtml": "^0.8.7",
     "winston": "^2.2.0"
-  }
+  },
+  "license": "MIT"
 }
