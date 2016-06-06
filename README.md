@@ -189,7 +189,7 @@ module.exports = {
 };
 ```
 
-You use this data in your temomplates without any problem. 
+You can use this data in your temomplates without any problem. 
 
 ## Helpers
 
