@@ -8,7 +8,7 @@ const log = require('../lib/log');
 module.exports = function (userConfig, INPUT, OUTPUT) {
   const {BEMHTML} = require(join(OUTPUT, 'bundles', 'index', 'index.bemhtml.js'));
 
-  const i18n = require(join(INPUT, 'i18n.json'));
+  const i18n = require(join(INPUT, 'i18n'));
   const data = require(join(OUTPUT, 'data.json'));
 
   log.verbose('resolve pages by langs', userConfig.langs);

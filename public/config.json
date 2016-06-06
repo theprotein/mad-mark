@@ -1,9 +1,0 @@
-{
-  "langs": ["en", "ru"],
-  "theme": "simple",
-  "layouts": {
-    "blog": {
-      "paginate": 10
-    }
-  }
-}

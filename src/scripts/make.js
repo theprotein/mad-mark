@@ -4,7 +4,7 @@ const {join, resolve, basename} = require('path');
 const INPUT = process.env.BBIN;
 const OUTPUT = process.env.BBOUT;
 const CWD = OUTPUT.replace(basename(OUTPUT), '');
-const userConfig = require(join(INPUT, 'config.json'));
+const userConfig = require(join(INPUT, 'config'));
 
 const techs = {
   fileProvider: require('enb/techs/file-provider'),
@@ -16,10 +16,8 @@ const techs = {
 };
 const enbBemTechs = require('enb-bem-techs');
 const levels = [].concat(
-  require('bemark').levels.map(path => {
-    return join(CWD, path);
-  }),
-  `${join(INPUT, 'themes', userConfig.theme)}`
+  require('bemark').levels.map(path => (join(CWD, path))),
+  userConfig.themes.map(theme => (`${join(INPUT, 'themes', theme)}`))
 );
 
 module.exports = function(config) {

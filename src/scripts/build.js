@@ -11,7 +11,7 @@ const generateStatic = require('./generate');
 const decl = `exports.blocks=[{name:'root'}]`;
 
 module.exports = function (INPUT, OUTPUT) {
-  const userConfig = require(join(INPUT, 'config.json'));
+  const userConfig = require(join(INPUT, 'config'));
   const ENB = join(OUTPUT, '.enb', 'make.js');
 
   log.verbose('clean output folder', OUTPUT);
@@ -36,7 +36,8 @@ module.exports = function (INPUT, OUTPUT) {
     log.verbose('ensure nojekyll file');
     fs.ensureFileSync(join(OUTPUT, '.nojekyll'));
 
-    log.verbose('clean temp folders');
+    log.verbose('clean temp files and folders');
     fs.removeSync(ENB);
+    fs.removeSync(join(OUTPUT, 'data.json'));
   });
 }
