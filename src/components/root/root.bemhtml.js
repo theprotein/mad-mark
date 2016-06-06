@@ -8,7 +8,7 @@ block('root')(
       block: 'page',
       title: i18n && i18n.title,
       mods: this.extend({}, this.mods),
-      head: [
+      styles: [
         { elem: 'css', url: `${assetsRelative}/css/styles.min.css` }
         // TODO: add vendors from config
       ],
@@ -17,6 +17,7 @@ block('root')(
         // TODO: add vendors from config
       ],
       pagination: this.ctx.pagination,
+      tags: this.ctx.tags,
       config: this.ctx.config,
       name: this.ctx.name,
       meta: this.ctx.meta,

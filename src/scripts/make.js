@@ -21,8 +21,6 @@ const levels = [].concat(
 );
 
 module.exports = function(config) {
-  const isProd = process.env.YENV === 'production';
-
   config.nodes(`${join('bundles', '*')}`, nodeConfig => {
     nodeConfig.addTechs([
       [enbBemTechs.levels, { levels: levels }],
@@ -81,8 +79,16 @@ module.exports = function(config) {
         sources: ['.tmp.browser.js', '.tmp.browser.bemhtml.js']
       }],
       [techs.bemhtml, { sourceSuffixes: ['bemhtml', 'bemhtml.js'] }],
-      [techs.borschik, { source: '.tmp.js', target: '?.min.js', minify: isProd }],
-      [techs.borschik, { source: '.tmp.css', target: '?.min.css', minify: isProd }]
+      [techs.borschik, {
+        source: '.tmp.js',
+        target: '?.min.js',
+        minify: userConfig.minify
+      }],
+      [techs.borschik, {
+        source: '.tmp.css', 
+        target: '?.min.css',
+        minify: userConfig.minify
+      }]
     ]);
 
     nodeConfig.addTargets(['?.bemhtml.js', '?.min.css', '?.min.js']);

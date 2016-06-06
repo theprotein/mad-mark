@@ -4,23 +4,14 @@ block('page').mod('layout', 'blog')(
       {
         elem: 'header',
         content: {
-          block: 'header',
-          content: [
-            {
-              tag: 'h1',
-              content: this._title
-            },
-            {
-              block: 'lang-switcher'
-            }
-          ]
+          block: 'header'
         }
       },
       {
         elem: 'content',
-        content: applyNext()
+        content: this.ctx.content
       },
-      this._pagination && this._pagination.needPagination && {
+      this._paginatable && {
         elem: 'pagination',
         content: {
           block: 'pagination'
@@ -31,7 +22,8 @@ block('page').mod('layout', 'blog')(
         content: {
           block: 'footer'
         }
-      }
+      },
+      this.ctx.scripts
     ];
   })
 );

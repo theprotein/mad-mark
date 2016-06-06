@@ -9,7 +9,8 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
   const {BEMHTML} = require(join(OUTPUT, 'bundles', 'index', 'index.bemhtml.js'));
 
   const i18n = require(join(INPUT, 'i18n'));
-  const data = require(join(OUTPUT, 'data.json'));
+  const data = require(join(OUTPUT, 'data'));
+  const tags = getTags(data);
 
   log.verbose('resolve pages by langs', userConfig.langs);
   userConfig.langs.forEach(lang => {
@@ -41,6 +42,7 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
             fs.outputFileSync(pagePath, BEMHTML.apply({
               block: 'root',
               mods: { layout },
+              tags: tags,
               data: contentByLang,
               config: userConfig,
               name: page.name,
@@ -68,6 +70,7 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
           fs.outputFileSync(pagePath, BEMHTML.apply({
             block: 'root',
             mods: { layout },
+            tags: tags,
             data: contentByLang,
             config: userConfig,
             name: page.name,
@@ -79,32 +82,10 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
           }));
         });
 
-        log.verbose('resolve pages by tags');
-        const tags = getTags(data);
-        if(tags[lang]) {
-          tags[lang].forEach(tag => {
-            const pagePath = join(OUTPUT, 'tags', `tag-${tag}.${resolveLang(lang, userConfig)}.html`);
-            log.verbose('write html to fs', pagePath);
-            fs.outputFileSync(pagePath, BEMHTML.apply({
-              block: 'root',
-              mods: { layout: 'tags' },
-              data: contentByLang,
-              config: userConfig,
-              name: page.name,
-              meta: page.meta,
-              layout: layout,
-              i18n: i18n,
-              lang: lang,
-              content: contentByLayout.filter(post => (
-                post.meta && post.meta.tags && post.meta.tags.indexOf(tag) > -1
-              ))
-            }));
-          });
-        } else {
-          log.verbose(`no tags for layout '${layout}'`);
-        }
       });
+
     }
+
   });
 }
 /**

@@ -5,5 +5,6 @@ module.exports = {
     blog: {
       paginate: 10
     }
-  }
+  },
+  minify: true
 };

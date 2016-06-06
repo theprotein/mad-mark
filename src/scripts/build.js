@@ -33,7 +33,10 @@ module.exports = function (INPUT, OUTPUT) {
       return;
     };
 
+    log.verbose('init grabbing');
     grabMd(userConfig, INPUT, OUTPUT);
+    
+    log.verbose('init generation');
     generateStatic(userConfig, INPUT, OUTPUT);
 
     log.verbose('ensure nojekyll file');
