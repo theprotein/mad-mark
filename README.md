@@ -210,6 +210,7 @@ You can get information below in any place of your templates by call `this._*`, 
   _i18n, // Object - i18n translations
   _lang, // String - page lang
   _mods // Object - layout modificators
+}
 ```
 
 Also for better layouts in any place of your tamplates available [bem-grid](https://github.com/bem-contrib/bem-grid) - modular grid system based on [Lost](https://github.com/peterramsing/lost).
