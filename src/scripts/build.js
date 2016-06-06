@@ -12,7 +12,8 @@ const decl = `exports.blocks=[{name:'root'}]`;
 
 module.exports = function (INPUT, OUTPUT) {
   const userConfig = require(join(INPUT, 'config'));
-  const ENB = join(OUTPUT, '.enb', 'make.js');
+  const ENB_DIR = join(OUTPUT, '.enb');
+  const ENB = join(ENB_DIR, 'make.js');
 
   log.verbose('clean output folder', OUTPUT);
   fs.removeSync(OUTPUT);
@@ -37,7 +38,7 @@ module.exports = function (INPUT, OUTPUT) {
     fs.ensureFileSync(join(OUTPUT, '.nojekyll'));
 
     log.verbose('clean temp files and folders');
-    fs.removeSync(ENB);
+    fs.removeSync(ENB_DIR);
     fs.removeSync(join(OUTPUT, 'data.json'));
   });
 }
