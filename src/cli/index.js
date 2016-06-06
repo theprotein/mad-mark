@@ -17,6 +17,7 @@ module.exports = coa.Cmd()
     .act(function() { return pkg.version; })
     .end()
   .cmd().name('build').apply(require('./commands/build.js')).end()
+  .cmd().name('server').apply(require('./commands/server.js')).end()
   .act(function() {
     console.log('Type \'--help\' for help');
   })

@@ -6,5 +6,6 @@ module.exports = {
       paginate: 10
     }
   },
+  output: './dist',
   minify: true
 };
