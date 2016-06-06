@@ -41,7 +41,11 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
             fs.outputFileSync(pagePath, BEMHTML.apply({
               block: 'root',
               mods: { layout },
-              title: i18n.title && i18n.title[lang] || '',
+              config: userConfig,
+              name: page.name,
+              meta: page.meta,
+              layout: layout,
+              i18n: i18n,
               lang: lang,
               pagination: {
                 totalPages: totalPages,
@@ -63,7 +67,11 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
           fs.outputFileSync(pagePath, BEMHTML.apply({
             block: 'root',
             mods: { layout },
-            title: i18n.title && i18n.title[lang] || '',
+            config: userConfig,
+            name: page.name,
+            meta: page.meta,
+            layout: layout,
+            i18n: i18n,
             lang: lang,
             content: page.content
           }));
@@ -78,7 +86,11 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
             fs.outputFileSync(pagePath, BEMHTML.apply({
               block: 'root',
               mods: { layout: 'tags' },
-              title: i18n.title && i18n.title[lang] || '',
+              config: userConfig,
+              name: page.name,
+              meta: page.meta,
+              layout: layout,
+              i18n: i18n,
               lang: lang,
               content: contentByLayout.filter(post => (
                 post.meta && post.meta.tags && post.meta.tags.indexOf(tag) > -1
