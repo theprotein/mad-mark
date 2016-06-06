@@ -1,7 +1,7 @@
 'use strict';
 
 const coa = require('coa');
-const pkg = require('../../package.json');
+const pkg = require('../../../package.json');
 
 module.exports = coa.Cmd()
   .name('bb')

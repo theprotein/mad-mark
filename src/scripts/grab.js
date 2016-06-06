@@ -4,6 +4,7 @@ const fs = require('bluebird').promisifyAll(require('fs-extra'));
 const {join} = require('path');
 const marked = require('meta-marked');
 const glob = require('glob');
+const posthtml = require('posthtml');
 
 const log = require('../lib/log');
 const defContentDir = 'content';
@@ -22,6 +23,8 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
     const fileName = file.split('/').reverse()[0];
     const pageName = fileName.split('.')[0];
 
+    const posthtmlPlugins = userConfig.posthtmlPlugins || require('bemark').posthtmlPlugins;
+
     const layoutTest = file.split('/').reverse()[1];
     return {
       fileName: fileName,
@@ -30,7 +33,7 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
       path: file,
       lang: file.split('.').reverse()[1],
       meta: compiled.meta,
-      content: compiled.html // TODO: posthtml and get plugins by layout
+      content: posthtml(posthtmlPlugins).process(compiled.html, { sync: true }).tree
     };
   });
 

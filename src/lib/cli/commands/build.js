@@ -1,6 +1,6 @@
 'use strict';
 
-const build = require('../../scripts/build.js');
+const build = require('../../../scripts/build.js');
 const {join} = require('path');
 
 module.exports = function() {
