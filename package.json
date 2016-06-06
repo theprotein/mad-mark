@@ -1,6 +1,6 @@
 {
   "name": "bemark",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "bin": {
     "bemark": "./bin/bemark"
   },
@@ -43,8 +43,5 @@
     "postcss-simple-vars": "^2.0.0",
     "postcss-url": "^5.1.2",
     "winston": "^2.2.0"
-  },
-  "scripts": {
-    "build": "bb build -i public -o dist"
   }
 }
