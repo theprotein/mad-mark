@@ -36,7 +36,7 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
 
           log.verbose('resove pages by paginated content', totalPages);
           paginatedContent.forEach((page, idx) => {
-            const pagePath = join(OUTPUT, layout, `index${resolvePageNum(idx)}${resolveLang(lang, userConfig)}.html`);
+            const pagePath = join(OUTPUT, resolveLayoutOutputDir(layout), `index${resolvePageNum(idx)}${resolveLang(lang, userConfig)}.html`);
             log.verbose('write html to fs', pagePath);
             fs.outputFileSync(pagePath, BEMHTML.apply({
               block: 'root',
@@ -63,7 +63,7 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
 
         log.verbose('resolve pages by layout', layout);
         contentByLayout.forEach(page => {
-          const pagePath = join(OUTPUT, layout, `${page.name}${resolveLang(lang, userConfig)}.html`);
+          const pagePath = join(OUTPUT, resolveLayoutOutputDir(layout), `${page.name}${resolveLang(lang, userConfig)}.html`);
           log.verbose('write html to fs', pagePath);
           fs.outputFileSync(pagePath, BEMHTML.apply({
             block: 'root',
@@ -83,7 +83,7 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
         const tags = getTags(data);
         if(tags[lang]) {
           tags[lang].forEach(tag => {
-            const pagePath = join(OUTPUT, 'tags', `tag-${tag}.${lang}.html`);
+            const pagePath = join(OUTPUT, 'tags', `tag-${tag}.${resolveLang(lang, userConfig)}.html`);
             log.verbose('write html to fs', pagePath);
             fs.outputFileSync(pagePath, BEMHTML.apply({
               block: 'root',
@@ -106,6 +106,16 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
       });
     }
   });
+}
+/**
+ * Resolve layout output directory.
+ * Root for root ;)
+ *
+ * @param  {String} layout
+ * @return {String}
+ */
+function resolveLayoutOutputDir(layout) {
+  return layout === 'root' ? '' : layout;
 }
 /**
  * Resolve suffix by page number

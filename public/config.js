@@ -1,6 +1,6 @@
 module.exports = {
   langs: ['en', 'ru'],
-  themes: ['simple'],
+  themes: ['bemark'],
   layouts: {
     blog: {
       paginate: 10
