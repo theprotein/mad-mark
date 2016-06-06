@@ -3,8 +3,8 @@
 const {join, resolve, basename} = require('path');
 const INPUT = process.env.BBIN;
 const OUTPUT = process.env.BBOUT;
-const CWD = OUTPUT.replace(basename(OUTPUT), '');
 const userConfig = require(join(INPUT, 'config'));
+const CWD = OUTPUT.replace(userConfig.output, '');
 
 const techs = {
   fileProvider: require('enb/techs/file-provider'),
@@ -85,7 +85,7 @@ module.exports = function(config) {
         minify: userConfig.minify
       }],
       [techs.borschik, {
-        source: '.tmp.css', 
+        source: '.tmp.css',
         target: '?.min.css',
         minify: userConfig.minify
       }]
