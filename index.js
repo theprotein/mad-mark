@@ -11,3 +11,7 @@ exports.levels = [
   join('node_modules', 'bem-grid', 'common.blocks'),
   join('node_modules', 'bemark', 'src', 'components')
 ];
+
+exports.posthtmlPlugins = [
+  require('./src/lib/posthtml-plugins/semantize')
+]
