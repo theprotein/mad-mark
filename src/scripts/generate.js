@@ -41,6 +41,7 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
             fs.outputFileSync(pagePath, BEMHTML.apply({
               block: 'root',
               mods: { layout },
+              data: contentByLang,
               config: userConfig,
               name: page.name,
               meta: page.meta,
@@ -67,6 +68,7 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
           fs.outputFileSync(pagePath, BEMHTML.apply({
             block: 'root',
             mods: { layout },
+            data: contentByLang,
             config: userConfig,
             name: page.name,
             meta: page.meta,
@@ -86,6 +88,7 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
             fs.outputFileSync(pagePath, BEMHTML.apply({
               block: 'root',
               mods: { layout: 'tags' },
+              data: contentByLang,
               config: userConfig,
               name: page.name,
               meta: page.meta,
