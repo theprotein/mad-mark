@@ -1,7 +1,0 @@
-language: node_js
-node_js:
-- '0.10'
-after_success: ./update-gh-pages.sh
-env:
-  global:
-  - secure: Nb6Gw3csiAYkdepcdKwcQAZcjkK703VOWa79IoTFo6Q+dyHjplaJtCJmFoX+P9T8pMkzngT0pYmzgatZQKRlb0NVZfxfmvy263/0mPgfrs6MgvSKVv11sIIowBXB39m2iWcYLCBnb3/O209RZ0NoZGdGiNLqqDr6rZNTe6heck0=
