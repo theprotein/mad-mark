@@ -1,3 +1,19 @@
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/awinogradov/bemark/compare/v1.1.2...v1.1.3) (2016-06-07)
+
+
+### Bug Fixes
+
+* **build:** deep src available ([#46](https://github.com/awinogradov/bemark/issues/46)) ([922a24a](https://github.com/awinogradov/bemark/commit/922a24a))
+* **changelog:** regenerate ([9c534b9](https://github.com/awinogradov/bemark/commit/9c534b9))
+
+
+### Features
+
+* **lint:** lint commit messages by angular preset ([#44](https://github.com/awinogradov/bemark/issues/44)) ([afc3414](https://github.com/awinogradov/bemark/commit/afc3414))
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/awinogradov/bemark/compare/1.1.1...v1.1.2) (2016-06-07)
 
