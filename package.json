@@ -1,6 +1,6 @@
 {
   "name": "bemark",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "bin": {
     "bemark": "./bin/bemark"
   },
