@@ -11,7 +11,16 @@
   "engines": {
     "node": ">=6"
   },
-  "devDependencies": {},
+  "scripts": {
+    "release-patch": "mversion patch",
+    "release-minor": "mversion minor",
+    "release-major": "mversion major"
+  },
+  "devDependencies": {
+    "conventional-changelog": "^1.1.0",
+    "graceful-fs": "^4.1.4",
+    "mversion": "^1.10.1"
+  },
   "dependencies": {
     "bem-components": "^3.0.0",
     "bem-core": "^3.0.1",
