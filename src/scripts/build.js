@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('bluebird').promisifyAll(require('fs-extra'));
-const {join, basename} = require('path');
+const {join} = require('path');
 const {exec} = require('child_process');
 
 const log = require('../lib/log');
@@ -10,9 +10,10 @@ const generateStatic = require('./generate');
 
 const decl = `exports.blocks=[{name:'root'}]`;
 
-module.exports = function (INPUT) {
+module.exports = function (CWD, IN) {
+  const INPUT = join(CWD, IN);
   const userConfig = require(join(INPUT, 'config'));
-  const OUTPUT = join(INPUT.replace(basename(INPUT), ''), userConfig.output);
+  const OUTPUT = join(CWD, userConfig.output);
   const ENB_DIR = join(OUTPUT, '.enb');
   const ENB = join(ENB_DIR, 'make.js');
   const BUNDLES_DIR = join(OUTPUT, 'bundles');

@@ -14,8 +14,6 @@ module.exports = function() {
       .end()
     .act(function(opts) {
       const {INPUT} = opts;
-      INPUT && build(
-        join(process.cwd(), INPUT)
-      );
+      INPUT && build(process.cwd(), INPUT);
     });
 };
