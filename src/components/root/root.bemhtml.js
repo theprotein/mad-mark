@@ -8,13 +8,11 @@ block('root')(
       block: 'page',
       title: i18n && i18n.title,
       mods: this.extend({}, this.mods),
-      styles: [
+      _css: [
         { elem: 'css', url: `${assetsRelative}/css/styles.min.css` }
-        // TODO: add vendors from config
       ],
-      scripts: [
+      _js: [
         { elem: 'js', url: `${assetsRelative}/js/scripts.min.js` }
-        // TODO: add vendors from config
       ],
       pagination: this.ctx.pagination,
       tags: this.ctx.tags,
@@ -24,7 +22,8 @@ block('root')(
       layout: this.ctx.layout,
       i18n: this.ctx.i18n,
       lang: this.ctx.lang,
-      content: this.ctx.content
+      content: this.ctx.content,
+      vendors: {}
     });
   })
 );

@@ -1,6 +1,9 @@
 block('page')(
 
   def()(function() {
+    this.ctx.styles = [].concat(this.ctx._css, this.ctx.vendors.css);
+    this.ctx.scripts = [].concat(this.ctx._js, this.ctx.vendors.js);
+
     // get this data in any place and any template by this._*
     return applyNext({
       _tags: this.ctx.tags,
@@ -15,16 +18,5 @@ block('page')(
       _lang: this.ctx.lang,
       _mods: this.ctx.mods
     });
-  }),
-
-  content()(function () {
-    // default layout
-    return [
-      {
-        elem: 'content',
-        content: this.ctx.content
-      },
-      this.ctx.scripts
-    ];
   })
 );

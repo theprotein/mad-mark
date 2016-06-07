@@ -328,4 +328,41 @@ You can write CSS for [PostCSS](https://github.com/postcss/postcss). List of use
 ]
 ```
 
+## Vendors
+
+You can connect any external styles and scripts for any layout or for all of them. For example you can connect Bootstrap in your templates:
+
+``` js
+block('page').mod('layout', 'any')(
+  def()(function () {
+    this.ctx.vendors.css = [
+      {
+        elem: 'css',
+        url: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css'
+      }
+    ];
+
+    this.ctx.vendors.js = [
+      {
+        elem: 'js',
+        url: '//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'
+      },
+      {
+        elem: 'js',
+        url: '//cdnjs.cloudflare.com/ajax/libs/tether/1.3.1/js/tether.min.js'
+      },
+      {
+        elem: 'js',
+        url: '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js'
+      }
+    ];
+
+    return applyNext();
+  })
+);
+```
+
+All styles will be added to head of your pages and all of scripts will be added to
+the end of `body` tag of your pages.
+
 ### License MIT
