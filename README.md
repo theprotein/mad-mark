@@ -1,6 +1,13 @@
 # Bemark
 
-Tool for static sites generation based on Markdown and [bem-xjst](https://github.com/bem/bem-xjst). Motivation is possibility to build static sites with simple markdown files, themes based on `bem-xjst` extandable templates, add CSS with [PostCSS](https://github.com/postcss/postcss) and transform compiled markdown with [PostHTML](https://github.com/posthtml/posthtml).
+Static site generator based on Markdown and [bem-xjst](https://github.com/bem/bem-xjst). Motivation is easy modular component based way to build static sites from simple markdown files.
+
+To match this needs Bemark uses:
+* extendable [`bemhtml`](https://github.com/bem/bem-xjst/blob/master/docs/en/5-templates-syntax.md) templates provided by `bem-xjst`;
+* [`bem-components`](https://github.com/bem/bem-xjst) as rich library of ready ui blocks;
+* [`PostCSS`](https://github.com/postcss/postcss) for css transformations;
+* [`PostHTML`](https://github.com/posthtml/posthtml) to transform compiled markdown into tree of blocks passed to `bem-xjst`;
+* [Filesystem organisation for BEM projects](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
 
 ## Installation
 
@@ -57,7 +64,7 @@ You can see generated folder structure below:
   - index.ru.html
 ```
 
-Second way to build your site is the dev-server wich based on [browser-sync](browsersync.io).
+Second way to build your site is the dev-server which based on [browser-sync](browsersync.io).
 
 > bemark server -i static
 
@@ -68,7 +75,7 @@ Point your browser to [http://localhost:3000](http://localhost:3000). Now you ca
 To generate static pages put markdown files into `content/*` with lang suffixes (e.g. `index.en.md`).
 You may use yaml header to set title and tags like this:
 
-```
+```md
 ---
 title: Post title
 tags:
@@ -80,14 +87,14 @@ tags:
 # Markdown content
 ```
 
-Every markdown page will be wrapped in layout wich based on [bemhtml](https://en.bem.info/technology/bemhtml/v2/intro) templates for [bem-xjst](https://github.com/bem/bem-xjst) engine.
+Every markdown page will be wrapped in layout which is based on [bemhtml](https://en.bem.info/technology/bemhtml/v2/intro) templates for [bem-xjst](https://github.com/bem/bem-xjst) engine.
 
 ## Layouts
 
-When you put your pages into `content/**/*` each of them get layout name based on folder name where they stay. For example file in `content/artiсles/index.en.md` has `articles` layout. If file stay in the root of `content` folder so it has `root` layout ;) What does it mean for you? It's an unlimited number of possibilities for content customization. For example put template below to `static/themes/<project-name>/page/_layout/page_layout_article.bemhtml.js`:
+When you put your pages into `content/**/*` each of them get layout name based on folder name where they stay. For example file in `content/artiсles/index.en.md` has `articles` layout. If file stay in the root of `content` folder so it has `root` layout ;) What does it mean for you? It's an unlimited number of possibilities for content customization. For example put template below to `static/themes/<theme-name>/page/_layout/page_layout_articles.bemhtml.js`:
 
 ``` js
-block('page').mod('layout', 'article')(
+block('page').mod('layout', 'articles')(
   content()(function() {
     return [
       {
@@ -126,7 +133,9 @@ block('page').mod('layout', 'article')(
 
 ## Themes
 
-It's folder where you can collect your components for layouts. Component is the folder for entity with `*.bemhtml.js`, `*.css` and `*.js` implementation. For example you can write component for header. Put template below to `static/themes/<project-name>/header/header.bemhtml.js`:
+You can collect your components for layouts in `static/themes/<theme-name>`. One default theme with your project name was created for you by `bemark init` command.
+Theme folders follows [Filesystem organisation for BEM projects](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
+Component is the subfolder of theme for entity with `*.bemhtml.js`, `*.css` and `*.js` implementation. For example you can write component for header. Put template below to `static/themes/<theme-name>/header/header.bemhtml.js`:
 
 ``` js
 block('header')(
@@ -144,10 +153,10 @@ block('header')(
   })
 );
 ```
-And rewrite layout for `article`:
+Rewrite layout for `articles` to use `header` component:
 
 ``` js
-block('page').mod('layout', 'article')(
+block('page').mod('layout', 'articles')(
   content()(function() {
     return [
       {
@@ -172,31 +181,60 @@ block('page').mod('layout', 'article')(
   })
 );
 ```
+[Describe dependency](https://en.bem.info/technology/deps/about/#depsjs-syntax) in `static/themes/<theme-name>/page/page.deps.js`:
+```js
+({
+  shouldDeps: { block: 'header' }
+})
+```
 
 Run `bemark server -i static` to watch result at the same time.
 
-You can use many themes in one project. If you want do this you should make number of folders eq themes number in `themes` folder and talk about this to Bemark by `config.js`.
+You can use many themes in one project. Make sure your themes is defined in [config](#config). All of them is active in the same time and used as [redefinition levels](https://en.bem.info/methodology/key-concepts/#redefinition-level).
 
 ## Config
 
-Config is the simple commonJs module:
+`config.js` is the simple commonJs module:
 
 ``` js
 module.exports = {
   langs: ['en', 'ru'],
-  themes: ['<project-name>', ...], // all sub folders names from `themes` folder
+  themes: ['<theme-name>', ...], // all sub folders names from `themes` folder
   output: './dist',
   minify: true // minify css and js by default
 };
 ```
 
-You can use this data in your templates without any problem.
+Config data is exposed to your templates as `this._config` helper.
 
-## Helpers
+## Template helpers
 
-When write components or layouts you may want extra information about your markdown, project, other files, languages, paginations and etc. Bemark know this problem ;)
+### Grid Layout
 
-You can get information below in any place of your templates by call `this._*`, ex `this._name`, `this._config`:
+For better content layout use `blocks` provided by [bem-grid](https://github.com/bem-contrib/bem-grid#easy-example) - modular grid system based on [Lost](https://github.com/peterramsing/lost).
+Describe dependencies in `static/themes/<theme-name>/page/page.deps.js` to make it available in your layout templates:
+```js
+({
+  shouldDeps: [
+    // from previous example
+    { block: 'header' },
+    // provided by `bem-grid`
+    { block: 'row' },
+    { block: 'mq' }
+  ]
+})
+```
+
+### Ready components
+
+Use rich set of ready components, provided by [`bem-components`](https://github.com/bem/bem-components) library.
+You should also describe corresponded dependncies in your components `*.deps.js` files to make it available in templates.
+
+### Meta
+
+Components or layouts may require extra information about your markdown, project, other files, languages, paginations and etc. Bemark know this problem ;)
+
+You can get information below in body of your templates by call `this._*`, ex `this._name`, `this._config`:
 
 ``` js
 {
@@ -214,11 +252,9 @@ You can get information below in any place of your templates by call `this._*`, 
 }
 ```
 
-Also for better layouts in any place of your tamplates available [bem-grid](https://github.com/bem-contrib/bem-grid) - modular grid system based on [Lost](https://github.com/peterramsing/lost).
+### i18n meta
 
-## i18n
-
-i18n is the simple commonJs module:
+`i18n.js` is the simple commonJs module:
 
 ``` js
 module.exports = {
@@ -274,7 +310,7 @@ Browse [PostHTML plugins directory](https://github.com/posthtml/posthtml#plugins
 
 ## CSS transform
 
-You can write CSS for [PostCSS](https://github.com/postcss/postcss). List of available plugins:
+You can write CSS for [PostCSS](https://github.com/postcss/postcss). List of used plugins:
 
 ``` js
 [
