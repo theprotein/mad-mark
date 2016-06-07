@@ -46,7 +46,7 @@ function configTmpl(langs, name, output) {
     langs: langs,
     output: output
   };
-  return `module.exports = ${JSON.stringify(config)};`;
+  return `module.exports = ${JSON.stringify(config, null, 2)};`;
 }
 
 function i18nTmpl(langs, name) {
@@ -56,7 +56,7 @@ function i18nTmpl(langs, name) {
       title: `Title - ${name}`
     };
   });
-  return `module.exports = ${JSON.stringify(i18n)};`;
+  return `module.exports = ${JSON.stringify(i18n, null, 2)};`;
 }
 
 function helloWorldTmpl(langs, lang) {
