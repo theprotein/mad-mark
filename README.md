@@ -35,6 +35,7 @@ After that Bemark generate base project structure in `static` folder:
 
 ## Build
 
+_You need globally installed [enb](https://www.npmjs.com/package/enb) for right build._
 You can build all content in two ways. Firstly, it's simple command:
 
 > bemark build -i static
@@ -83,7 +84,7 @@ Every markdown page will be wrapped in layout wich based on [bemhtml](https://en
 
 ## Layouts
 
-When you put your pages into `content/**/*` each of them get layout name based on folder name where they stay. For example file in `content/artciles/index.en.md` has `article` layout. If file stay in the root of `content` folder so it has `root` layout ;) What does it mean for you? It's an unlimited number of possibilities for content customization. For example put template below to `static/themes/<project-name>/page/_layout/page_layout_article.bemhtml.js`:
+When you put your pages into `content/**/*` each of them get layout name based on folder name where they stay. For example file in `content/artiсles/index.en.md` has `articles` layout. If file stay in the root of `content` folder so it has `root` layout ;) What does it mean for you? It's an unlimited number of possibilities for content customization. For example put template below to `static/themes/<project-name>/page/_layout/page_layout_article.bemhtml.js`:
 
 ``` js
 block('page').mod('layout', 'article')(
