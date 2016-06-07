@@ -4,7 +4,7 @@ const coa = require('coa');
 const pkg = require('../../../package.json');
 
 module.exports = coa.Cmd()
-  .name('bb')
+  .name('bemark')
   .title('Static generator')
   .helpful()
   .opt()
