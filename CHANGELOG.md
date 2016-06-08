@@ -1,3 +1,13 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/awinogradov/bemark/compare/v2.1.0...v2.2.0) (2016-06-08)
+
+
+### Features
+
+* **build:** remove global modules and save temp ([#53](https://github.com/awinogradov/bemark/issues/53)) ([d6ba6c6](https://github.com/awinogradov/bemark/commit/d6ba6c6))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/awinogradov/bemark/compare/v2.0.0...v2.1.0) (2016-06-08)
 
