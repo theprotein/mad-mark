@@ -9,6 +9,7 @@ const CWD = OUTPUT.replace(userConfig.output, '');
 const techs = {
   fileProvider: require('enb/techs/file-provider'),
   fileMerge: require('enb/techs/file-merge'),
+  fileCopy: require('enb/techs/file-copy'),
   borschik: require('enb-borschik/techs/borschik'),
   postcss: require('enb-postcss/techs/enb-postcss'),
   browserJs: require('enb-js/techs/browser-js'),
@@ -32,18 +33,12 @@ module.exports = function(config) {
         target: '.tmp.css',
         sourcemap: true,
         plugins: [
-          require('postcss-import'),
-          require('postcss-mixins'),
-          require('postcss-each'),
-          require('postcss-simple-vars')({
-            variables: {
-              gridMaxWidth: '1000px',
-              gridGutter: '0px',
-              gridFlex: 'flex'
-            }
+          require('bem-grid').postcss({
+            maxWidth: '1000px',
+            gutter: '0px',
+            flex: 'flex'
           }),
-          require('lost'),
-          require('postcss-cssnext'),
+          require('postcss-import'),
           require('postcss-nested'),
           require('postcss-url')({ url: 'rebase' }),
           require('postcss-font-magician')(),
@@ -84,10 +79,10 @@ module.exports = function(config) {
         target: '?.min.js',
         minify: userConfig.minify
       }],
-      [techs.borschik, {
+      [techs.fileCopy, {
         source: '.tmp.css',
-        target: '?.min.css',
-        minify: userConfig.minify
+        target: '?.min.css'
+        // minify: userConfig.minify
       }]
     ]);
 

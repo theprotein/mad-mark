@@ -16,7 +16,8 @@ block('page')(
       _layout: this.ctx.layout,
       _i18n: this.ctx.i18n,
       _lang: this.ctx.lang,
-      _mods: this.ctx.mods
+      _mods: this.ctx.mods,
+      _data: this.ctx.data
     });
   })
 );

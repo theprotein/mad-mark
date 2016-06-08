@@ -2,7 +2,7 @@
 
 module.exports = function semantize(tree) {
 
-  tree.match({ tag: 'a' }, node => {
+  tree.match({ tag: 'a', attrs: { class: false } }, node => {
     node.block = 'link';
     return node;
   });

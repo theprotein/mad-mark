@@ -23,6 +23,7 @@ block('root')(
       i18n: this.ctx.i18n,
       lang: this.ctx.lang,
       content: this.ctx.content,
+      data: this.ctx.data,
       vendors: {}
     });
   })
