@@ -1,3 +1,13 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/awinogradov/bemark/compare/v2.0.0...v2.1.0) (2016-06-08)
+
+
+### Features
+
+* **cli:** default options ([#52](https://github.com/awinogradov/bemark/issues/52)) ([4438e4d](https://github.com/awinogradov/bemark/commit/4438e4d))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/awinogradov/bemark/compare/v1.2.1...v2.0.0) (2016-06-08)
 
