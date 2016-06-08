@@ -80,9 +80,9 @@ You may use yaml header to set title and tags like this:
 ---
 title: Post title
 tags:
-    - tag1
-    - tag2
-    - tag3
+  - tag1
+  - tag2
+  - tag3
 ---
 
 # Markdown content
