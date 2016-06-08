@@ -22,14 +22,19 @@ module.exports = function (userConfig, INPUT, OUTPUT) {
     const compiled = marked(md);
     const fileName = file.split('/').reverse()[0];
     const pageName = fileName.split('.')[0];
-
-    const posthtmlPlugins = userConfig.posthtmlPlugins || require('bemark').posthtmlPlugins;
-
     const layoutTest = file.split('/').reverse()[1];
+    const layout = layoutTest === defContentDir ? 'root' : layoutTest;
+
+    const posthtmlPlugins = (userConfig.layouts &&
+                            userConfig.layouts[layout] &&
+                            userConfig.layouts[layout].posthtmlPlugins) ||
+                            userConfig.posthtmlPlugins ||
+                            require('bemark').posthtmlPlugins;
+
     return {
       fileName: fileName,
       name: pageName,
-      layout: layoutTest === defContentDir ? 'root' : layoutTest,
+      layout: layout,
       path: file,
       lang: file.split('.').reverse()[1],
       meta: compiled.meta,
