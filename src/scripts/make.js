@@ -21,7 +21,7 @@ const levels = [].concat(
 );
 
 module.exports = function(config) {
-  config.nodes(`${join('bundles', '*')}`, nodeConfig => {
+  config.nodes(`${join('.bemark', '*')}`, nodeConfig => {
     nodeConfig.addTechs([
       [enbBemTechs.levels, { levels: levels }],
       [techs.fileProvider, { target: '?.bemdecl.js' }],

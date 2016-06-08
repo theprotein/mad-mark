@@ -9,9 +9,10 @@ const posthtml = require('posthtml');
 const log = require('../lib/log');
 const defContentDir = 'content';
 
-module.exports = function (userConfig, INPUT, OUTPUT) {
+module.exports = function (userConfig, CWD, INPUT, OUTPUT) {
   log.verbose('grab *.md files from', INPUT);
-  const dataPath = join(OUTPUT, 'data.json');
+  const TMP = join(CWD, '.bemark');
+  const dataPath = join(TMP, 'data.json');
   const mdFilesInRoot = glob.sync(join(INPUT, defContentDir, '*.md'));
   const mdFilesWithLayout = glob.sync(join(INPUT, defContentDir, '*', '*.md'));
   const mdFiles = [].concat(mdFilesInRoot, mdFilesWithLayout);

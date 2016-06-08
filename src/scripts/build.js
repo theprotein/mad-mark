@@ -19,13 +19,10 @@ module.exports = function (CWD, IN) {
   const INPUT = join(CWD, IN);
   const userConfig = require(join(INPUT, 'config'));
   const OUTPUT = join(CWD, userConfig.output);
-  const ENB_DIR = join(OUTPUT, '.enb');
+  const ENB_DIR = join(CWD, '.enb');
   const ENB = join(ENB_DIR, 'make.js');
-  const BUNDLES_DIR = join(OUTPUT, 'bundles');
-  const BUNDLE = join(BUNDLES_DIR, 'index');
-
-  log.verbose('clean output folder', OUTPUT);
-  fs.removeSync(OUTPUT);
+  const TMP = join(CWD, '.bemark');
+  const BUNDLE = join(TMP, 'index');
 
   log.verbose('touch declaration');
   let layouts = [{name: 'root'}];
@@ -41,18 +38,22 @@ module.exports = function (CWD, IN) {
   log.verbose('prepare config for enb in', ENB);
   fs.copySync(join(__dirname, 'make.js'), ENB);
 
+  log.verbose('clean old data');
+  fs.removeSync(OUTPUT);
+  fs.removeSync(join(TMP, 'data.json'));
+
   log.verbose('exec enb');
-  exec(`cd ${OUTPUT} && BBIN=${INPUT} BBOUT=${OUTPUT} enb make`, (err) => {
+  exec(`BBIN=${INPUT} BBOUT=${OUTPUT} enb make`, (err) => {
     if(err) {
       log.error(err);
       return;
     };
 
     log.verbose('init grabbing');
-    grabMd(userConfig, INPUT, OUTPUT);
+    grabMd(userConfig, CWD, INPUT, OUTPUT);
 
     log.verbose('init generation');
-    generateStatic(userConfig, INPUT, OUTPUT);
+    generateStatic(userConfig, CWD, INPUT, OUTPUT);
 
     log.verbose('ensure nojekyll file');
     fs.ensureFileSync(join(OUTPUT, '.nojekyll'));
@@ -68,10 +69,8 @@ module.exports = function (CWD, IN) {
         join(OUTPUT, 'css', 'styles.min.css')
       )
     ]).then(() => {
-      log.verbose('clean temp files and folders');
-      fs.removeSync(BUNDLES_DIR);
+      log.verbose('clean enb temp');
       fs.removeSync(ENB_DIR);
-      fs.removeSync(join(OUTPUT, 'data.json'));
     });
   });
 }

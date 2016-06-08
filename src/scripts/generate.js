@@ -5,11 +5,12 @@ const fs = require('fs-extra');
 
 const log = require('../lib/log');
 
-module.exports = function (userConfig, INPUT, OUTPUT) {
-  const {BEMHTML} = require(join(OUTPUT, 'bundles', 'index', 'index.bemhtml.js'));
+module.exports = function (userConfig, CWD, INPUT, OUTPUT) {
+  const TMP = join(CWD, '.bemark');
+  const {BEMHTML} = require(join(TMP, 'index', 'index.bemhtml.js'));
 
   const i18n = require(join(INPUT, 'i18n'));
-  const data = require(join(OUTPUT, 'data'));
+  const data = require(join(TMP, 'data'));
   const tags = getTags(data);
 
   log.verbose('resolve pages by langs', userConfig.langs);

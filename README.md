@@ -12,7 +12,7 @@ Watch __examples___ [here](https://github.com/awinogradov/bemark-examples).
 
 ## Installation
 
-> npm i -g bemark
+> npm i --save-dev bemark
 
 ## Usage
 
@@ -40,7 +40,6 @@ After that Bemark generate base project structure:
 
 ## Build
 
-_You need globally installed [enb](https://www.npmjs.com/package/enb) for right build._
 You can build all content in two ways. Firstly, it's simple command:
 
 > bemark build 
