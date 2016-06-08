@@ -9,6 +9,8 @@ To match this needs Bemark uses:
 * [`PostHTML`](https://github.com/posthtml/posthtml) to transform compiled markdown into tree of blocks passed to `bem-xjst`;
 * [Filesystem organisation for BEM projects](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
 
+Watch examples [here](https://github.com/awinogradov/bemark-examples).
+
 ## Installation
 
 > npm i -g --save-dev bemark
