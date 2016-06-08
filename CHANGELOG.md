@@ -1,3 +1,20 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/awinogradov/bemark/compare/v1.2.1...v2.0.0) (2016-06-08)
+
+
+### Bug Fixes
+
+* **init:** remove deps generation ([ba75331](https://github.com/awinogradov/bemark/commit/ba75331))
+
+
+### Features
+
+* no postcss plugins and external modules by default ([#48](https://github.com/awinogradov/bemark/issues/48)) ([b4b7d04](https://github.com/awinogradov/bemark/commit/b4b7d04))
+* **build:** automatic deps for layouts ([#50](https://github.com/awinogradov/bemark/issues/50)) ([0083bd6](https://github.com/awinogradov/bemark/commit/0083bd6))
+* **posthtml:** allow custom plugins for each layout ([#49](https://github.com/awinogradov/bemark/issues/49)) ([ce00285](https://github.com/awinogradov/bemark/commit/ce00285))
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/awinogradov/bemark/compare/v1.2.0...v1.2.1) (2016-06-08)
 
