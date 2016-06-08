@@ -7,8 +7,13 @@ const {exec} = require('child_process');
 const log = require('../lib/log');
 const grabMd = require('./grab');
 const generateStatic = require('./generate');
+const defContentDir = 'content';
 
-const decl = `exports.blocks=[{name:'root'}]`;
+const decl = [
+  {name: 'root'},
+  {name: 'page'},
+  {name: 'lang-switcher'}
+];
 
 module.exports = function (CWD, IN) {
   const INPUT = join(CWD, IN);
@@ -23,7 +28,15 @@ module.exports = function (CWD, IN) {
   fs.removeSync(OUTPUT);
 
   log.verbose('touch declaration');
-  fs.outputFileSync(join(BUNDLE, 'index.bemdecl.js'), decl);
+  let layouts = [{name: 'root'}];
+  let contentPath = join(INPUT, defContentDir);
+
+  fs.readdirSync(contentPath).filter(file => {
+    return fs.statSync(join(contentPath, file)).isDirectory();
+  }).forEach(layout => layouts.push({name: layout}));
+
+  decl.push({name: 'page', mods: [{ name: 'layout', vals: layouts }]});
+  fs.outputFileSync(join(BUNDLE, 'index.bemdecl.js'), `exports.blocks=${JSON.stringify(decl)}`);
 
   log.verbose('prepare config for enb in', ENB);
   fs.copySync(join(__dirname, 'make.js'), ENB);
