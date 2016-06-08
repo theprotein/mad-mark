@@ -42,7 +42,7 @@ After that Bemark generate base project structure:
 
 You can build all content in two ways. Firstly, it's simple command:
 
-> bemark build 
+> bemark build
 
 After that you can open generated content as html files `open dist/index.html`.
 You can see generated folder structure below:
@@ -129,7 +129,7 @@ block('page').mod('layout', 'articles')(
 ## Themes
 
 You can collect your components for layouts in `static/themes/<theme-name>`. One default theme with your project name was created for you by `bemark init` command.
-Theme folders follows [Filesystem organisation for BEM projects](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
+Theme folders follows [filesystem organisation for BEM projects](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
 Component is the subfolder of theme for entity with `*.bemhtml.js`, `*.css` and `*.js` implementation. For example you can write component for header. Put template below to `static/themes/<theme-name>/header/header.bemhtml.js`:
 
 ``` js
@@ -138,7 +138,7 @@ block('header')(
     return [
       {
         tag: 'h1',
-    	content: 'Article layout'
+    	  content: 'Article layout'
       },
       {
         tag: 'h2',
@@ -180,7 +180,7 @@ block('page').mod('layout', 'articles')(
 ```js
 ({
   shouldDeps: { block: 'header' }
-})
+});
 ```
 
 Run `bemark server` to watch result at the same time.
@@ -254,7 +254,7 @@ block('header')(
     return [
       {
         tag: 'h1',
-    	content: i18n.title
+    	  content: i18n.title
       },
       {
         tag: 'h2',
