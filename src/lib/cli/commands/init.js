@@ -11,31 +11,32 @@ module.exports = function() {
       .name('INPUT')
       .title('Input folder')
       .short('i')
+      .def('.')
       .end()
     .opt()
       .name('OUTPUT')
       .title('Output folder')
       .short('o')
+      .def('dist')
       .end()
     .opt()
       .name('LANGS')
       .title('i18n langs')
       .short('l')
+      .def('en')
       .end()
     .act(function(opts) {
       const {INPUT,OUTPUT,LANGS} = opts;
-      if(INPUT && OUTPUT) {
-        const pkg = require(join(process.cwd(), 'package.json'));
-        const CWD = join(process.cwd(), INPUT);
-        const langs = LANGS.split(',');
-        fs.outputFileSync(join(CWD, 'config.js'), configTmpl(langs, pkg.name, OUTPUT));
-        fs.outputFileSync(join(CWD, 'i18n.js'), i18nTmpl(langs, pkg.name));
-        fs.outputFileSync(join(CWD, 'themes', pkg.name, 'page', '_layout', 'page_layout_articles.bemhtml.js'), 'block(\'page\').mod(\'layout\', \'artiсles\')();');
-        langs.forEach(lang => {
-          fs.outputFileSync(join(CWD, 'content', `index.${lang}.md`), helloWorldTmpl(langs, lang));
-          fs.outputFileSync(join(CWD, 'content', 'articles', `index.${lang}.md`), articleTmpl(lang));
-        });
-      }
+      const pkg = require(join(process.cwd(), 'package.json'));
+      const CWD = join(process.cwd(), INPUT);
+      const langs = LANGS.split(',');
+      fs.outputFileSync(join(CWD, 'config.js'), configTmpl(langs, pkg.name, OUTPUT));
+      fs.outputFileSync(join(CWD, 'i18n.js'), i18nTmpl(langs, pkg.name));
+      fs.outputFileSync(join(CWD, 'themes', pkg.name, 'page', '_layout', 'page_layout_articles.bemhtml.js'), 'block(\'page\').mod(\'layout\', \'artiсles\')();');
+      langs.forEach(lang => {
+        fs.outputFileSync(join(CWD, 'content', `index.${lang}.md`), helloWorldTmpl(langs, lang));
+        fs.outputFileSync(join(CWD, 'content', 'articles', `index.${lang}.md`), articleTmpl(lang));
+      });
     });
 };
 

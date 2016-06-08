@@ -12,6 +12,7 @@ module.exports = function() {
       .name('INPUT')
       .title('Input folder')
       .short('i')
+      .def('.')
       .end()
     .act(function(opts) {
       const {INPUT} = opts;
@@ -21,6 +22,7 @@ module.exports = function() {
         watch: [
           INPUT
         ],
+        ignore: [userConfig.output],
         ext: 'bemhtml.js js css post.css svg md json',
         exec: `bemark build -i ${INPUT}`
       });
