@@ -4,16 +4,15 @@ Static site generator based on Markdown and [bem-xjst](https://github.com/bem/be
 
 To match this needs Bemark uses:
 * extendable [`bemhtml`](https://github.com/bem/bem-xjst/blob/master/docs/en/5-templates-syntax.md) templates provided by `bem-xjst`;
-* [`bem-components`](https://github.com/bem/bem-xjst) as rich library of ready ui blocks;
 * [`PostCSS`](https://github.com/postcss/postcss) for css transformations;
 * [`PostHTML`](https://github.com/posthtml/posthtml) to transform compiled markdown into tree of blocks passed to `bem-xjst`;
 * [Filesystem organisation for BEM projects](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
 
-Watch examples [here](https://github.com/awinogradov/bemark-examples).
+Watch __examples___ [here](https://github.com/awinogradov/bemark-examples).
 
 ## Installation
 
-> npm i -g --save-dev bemark
+> npm i -g bemark
 
 ## Usage
 
@@ -202,35 +201,13 @@ You can use many themes in one project. Make sure your themes is defined in [con
 module.exports = {
   langs: ['en', 'ru'],
   themes: ['<theme-name>', ...], // all sub folders names from `themes` folder
-  output: './dist',
-  minify: true // minify css and js by default
+  output: './dist'
 };
 ```
 
 Config data is exposed to your templates as `this._config` helper.
 
 ## Template helpers
-
-### Grid Layout
-
-For better content layout use `blocks` provided by [bem-grid](https://github.com/bem-contrib/bem-grid#easy-example) - modular grid system based on [Lost](https://github.com/peterramsing/lost).
-Describe dependencies in `static/themes/<theme-name>/page/page.deps.js` to make it available in your layout templates:
-```js
-({
-  shouldDeps: [
-    // from previous example
-    { block: 'header' },
-    // provided by `bem-grid`
-    { block: 'row' },
-    { block: 'mq' }
-  ]
-})
-```
-
-### Ready components
-
-Use rich set of ready components, provided by [`bem-components`](https://github.com/bem/bem-components) library.
-You should also describe corresponded dependncies in your components `*.deps.js` files to make it available in templates.
 
 ### Meta
 
@@ -244,6 +221,7 @@ You can get information below in body of your templates by call `this._*`, ex `t
   _pagination, // Object - data for pagination
   _paginatable, // Boolean - need pagination
   _config, // Object - project config
+  _data, // Object - compiled data by current lang
   _multilang, // Boolean - many langs
   _name, // String - page name
   _meta, // Object - parsed meta from yml in Markdown file
@@ -312,23 +290,23 @@ Browse [PostHTML plugins directory](https://github.com/posthtml/posthtml#plugins
 
 ## CSS transform
 
-You can write CSS for [PostCSS](https://github.com/postcss/postcss). List of used plugins:
+You can write CSS for [PostCSS](https://github.com/postcss/postcss) and use any plugins for it by config:
 
 ``` js
-[
-  'postcss-import',
-  'postcss-mixins',
-  'postcss-each',
-  'postcss-simple-vars',
-  'lost',
-  'postcss-cssnext',
-  'postcss-nested',
-  'postcss-url',
-  'postcss-font-magician',
-  'postcss-browser-reporter',
-  'postcss-reporter'
-]
+module.exports = {
+  ...
+  postcssPlugins: [
+    require('postcss-import'),
+    require('bem-grid').postcss(),
+    require('postcss-nested'),
+    require('postcss-font-magician'),
+    require('postcss-browser-reporter'),
+    require('postcss-reporter')
+  ]
+};
 ```
+
+Browse [PostCSS plugins directory](http://postcss.parts) to find them all ;)
 
 ## Vendors
 

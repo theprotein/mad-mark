@@ -10,7 +10,6 @@ const techs = {
   fileProvider: require('enb/techs/file-provider'),
   fileMerge: require('enb/techs/file-merge'),
   fileCopy: require('enb/techs/file-copy'),
-  borschik: require('enb-borschik/techs/borschik'),
   postcss: require('enb-postcss/techs/enb-postcss'),
   browserJs: require('enb-js/techs/browser-js'),
   bemhtml: require('enb-bemxjst/techs/bemhtml')
@@ -32,19 +31,7 @@ module.exports = function(config) {
         sourceSuffixes: ['css', 'post.css'],
         target: '.tmp.css',
         sourcemap: true,
-        plugins: [
-          require('bem-grid').postcss({
-            maxWidth: '1000px',
-            gutter: '0px',
-            flex: 'flex'
-          }),
-          require('postcss-import'),
-          require('postcss-nested'),
-          require('postcss-url')({ url: 'rebase' }),
-          require('postcss-font-magician')(),
-          require('postcss-browser-reporter'),
-          require('postcss-reporter')
-        ]
+        plugins: userConfig.postcssPlugins || []
       }],
       [enbBemTechs.depsByTechToBemdecl, {
         target: '.tmp.bemhtml.bemdecl.js',
@@ -74,16 +61,8 @@ module.exports = function(config) {
         sources: ['.tmp.browser.js', '.tmp.browser.bemhtml.js']
       }],
       [techs.bemhtml, { sourceSuffixes: ['bemhtml', 'bemhtml.js'] }],
-      [techs.borschik, {
-        source: '.tmp.js',
-        target: '?.min.js',
-        minify: userConfig.minify
-      }],
-      [techs.fileCopy, {
-        source: '.tmp.css',
-        target: '?.min.css'
-        // minify: userConfig.minify
-      }]
+      [techs.fileCopy, { source: '.tmp.js', target: '?.min.js' }],
+      [techs.fileCopy, { source: '.tmp.css', target: '?.min.css' }]
     ]);
 
     nodeConfig.addTargets(['?.bemhtml.js', '?.min.css', '?.min.js']);
