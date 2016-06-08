@@ -6,7 +6,7 @@ To match this needs Bemark uses:
 * extendable [`bemhtml`](https://github.com/bem/bem-xjst/blob/master/docs/en/5-templates-syntax.md) templates provided by `bem-xjst`;
 * [`PostCSS`](https://github.com/postcss/postcss) for css transformations;
 * [`PostHTML`](https://github.com/posthtml/posthtml) to transform compiled markdown into tree of blocks passed to `bem-xjst`;
-* [Filesystem organisation for BEM projects](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
+* [Filesystem organisation](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
 
 Watch __examples___ [here](https://github.com/awinogradov/bemark-examples).
 
@@ -22,23 +22,20 @@ Bemark can work standalone and in existing project like cli-tool for static cont
 
 You should choose cwd directory for your content in Markdown, output directory for generated content and languages for i18n. Bemark support i18n as well. First language will be used as default.
 
-> bemark init -i static -o dist -l en,ru
+> bemark init
 
-After that Bemark generate base project structure in `static` folder:
+After that Bemark generate base project structure:
 
 ```
-- static
-  - content
-    - articles
-      - index.en.md
-      - index.ru.md
-    - index.en.md
-    - index.ru.md
-  - themes
-    - <project-name>
-      - .gitkeep
-  - config.js
-  - i18n.js
+├── config.js
+├── content
+│   ├── articles
+│   │   └── index.en.md
+│   └── index.en.md
+├── i18n.js
+├── package.json
+└── themes
+    └── <project-name>
 ```
 
 ## Build
@@ -46,28 +43,26 @@ After that Bemark generate base project structure in `static` folder:
 _You need globally installed [enb](https://www.npmjs.com/package/enb) for right build._
 You can build all content in two ways. Firstly, it's simple command:
 
-> bemark build -i static
+> bemark build 
 
 After that you can open generated content as html files `open dist/index.html`.
 You can see generated folder structure below:
 
 ```
-- dist
-  - artciles
-    - index.html
-    - index.ru.html
-  - css
-    - styles.min.css
-  - js
-    - scripts.min.js
-  - .nojekyll
-  - index.html
-  - index.ru.html
+├── dist
+│   ├── articles
+│   │   └── index.html
+│   ├── css
+│   │   └── styles.min.css
+│   ├── .nojekyll
+│   ├── index.html
+│   └── js
+│       └── scripts.min.js
 ```
 
 Second way to build your site is the dev-server which based on [browser-sync](browsersync.io).
 
-> bemark server -i static
+> bemark server
 
 Point your browser to [http://localhost:3000](http://localhost:3000). Now you can edit your content, templates and configs with live-reloading ;)
 
@@ -189,7 +184,7 @@ block('page').mod('layout', 'articles')(
 })
 ```
 
-Run `bemark server -i static` to watch result at the same time.
+Run `bemark server` to watch result at the same time.
 
 You can use many themes in one project. Make sure your themes is defined in [config](#config). All of them is active in the same time and used as [redefinition levels](https://en.bem.info/methodology/key-concepts/#redefinition-level).
 
