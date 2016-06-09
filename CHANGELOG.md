@@ -1,3 +1,13 @@
+<a name="2.2.2"></a>
+## [2.2.2](https://github.com/awinogradov/bemark/compare/v2.2.1...v2.2.2) (2016-06-09)
+
+
+### Features
+
+* pass smth to console ([#59](https://github.com/awinogradov/bemark/issues/59)) ([9477088](https://github.com/awinogradov/bemark/commit/9477088))
+
+
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/awinogradov/bemark/compare/v2.2.0...v2.2.1) (2016-06-09)
 
