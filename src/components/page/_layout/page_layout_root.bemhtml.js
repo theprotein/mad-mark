@@ -6,7 +6,8 @@ block('page').mod('layout', 'root')(
         content: {
           block: 'header',
           content: this._multilang && {
-            block: 'lang-switcher'
+            block: 'lang-switcher',
+            langs: this._multilang
           }
         }
       },

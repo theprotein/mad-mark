@@ -216,7 +216,7 @@ You can get information below in body of your templates by call `this._*`, ex `t
   _paginatable, // Boolean - need pagination
   _config, // Object - project config
   _data, // Object - compiled data by current lang
-  _multilang, // Boolean - many langs
+  _multilang, // undefined || Array - contains `{ lang: String, url: String, current: Boolean, default: Boolean }` objects if there is more then 1 lang in config
   _name, // String - page name
   _meta, // Object - parsed meta from yml in Markdown file
   _layout, // String - layout name

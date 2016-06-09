@@ -1,5 +1,5 @@
 ({
   shouldDeps: [
-    { elem: 'link' }
+    { mods: ['current'] }
   ]
 });
