@@ -2,13 +2,21 @@
 
 const {join} = require('path');
 const fs = require('fs-extra');
+const infoSymbol = require('log-symbols').info;
 
-const log = require('../lib/log');
-
-module.exports = function (userConfig, CWD, INPUT, OUTPUT) {
+module.exports = function (userConfig, CWD, INPUT, OUTPUT, log) {
   const TMP = join(CWD, '.bemark');
-  const {BEMHTML} = require(join(TMP, 'index', 'index.bemhtml.js'));
 
+  let BEMHTML;
+  try {
+    BEMHTML = require(join(TMP, 'index', 'index.bemhtml.js')).BEMHTML;
+  } catch (e) {
+    console.error(e);
+    console.log('\n');
+    throw new Error(e);
+  }
+
+  log.info(`[${infoSymbol}]`, 'generating static content...');
   const i18n = require(join(INPUT, 'i18n'));
   const data = require(join(TMP, 'data'));
   const tags = getTags(data);

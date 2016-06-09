@@ -5,12 +5,12 @@ const {join} = require('path');
 const marked = require('meta-marked');
 const glob = require('glob');
 const posthtml = require('posthtml');
+const infoSymbol = require('log-symbols').info;
 
-const log = require('../lib/log');
 const defContentDir = 'content';
 
-module.exports = function (userConfig, CWD, INPUT, OUTPUT) {
-  log.verbose('grab *.md files from', INPUT);
+module.exports = function (userConfig, CWD, INPUT, OUTPUT, log) {
+  log.info(`[${infoSymbol}]`, `grab *.md files from ${INPUT}...`);
   const TMP = join(CWD, '.bemark');
   const dataPath = join(TMP, 'data.json');
   const mdFilesInRoot = glob.sync(join(INPUT, defContentDir, '*.md'));

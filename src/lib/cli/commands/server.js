@@ -3,6 +3,7 @@
 const {join} = require('path');
 const nodemon = require('nodemon');
 const bs = require('browser-sync');
+const infoSymbol = require('log-symbols').info;
 
 module.exports = function() {
   return this
@@ -42,7 +43,10 @@ module.exports = function() {
         tunnel: false,
         online: false,
         open: false,
-        notify: false
+        notify: userConfig.debug,
+        logPrefix: infoSymbol,
+        logFileChanges: userConfig.debug,
+        logLevel: userConfig.debug ? 'debug' : 'info'
       });
 
       nodemon.on('quit', function () {

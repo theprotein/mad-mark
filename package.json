@@ -38,6 +38,7 @@
     "fs-extra": "^0.30.0",
     "glob": "^4.0.0",
     "lodash": "^2.4.1",
+    "log-symbols": "^1.0.2",
     "meta-marked": "^0.3.1",
     "nodemon": "^1.9.2",
     "postcss": "^5.0.21",

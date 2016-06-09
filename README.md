@@ -8,7 +8,7 @@ To match this needs Bemark uses:
 * [`PostHTML`](https://github.com/posthtml/posthtml) to transform compiled markdown into tree of blocks passed to `bem-xjst`;
 * [Filesystem organisation](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
 
-Watch __examples___ [here](https://github.com/awinogradov/bemark-examples).
+Watch __examples__ [here](https://github.com/awinogradov/bemark-examples).
 
 ## Installation
 
@@ -193,6 +193,7 @@ You can use many themes in one project. Make sure your themes is defined in [con
 
 ``` js
 module.exports = {
+  debug: false, // false by default
   langs: ['en', 'ru'],
   themes: ['<theme-name>', ...], // all sub folders names from `themes` folder
   output: './dist'

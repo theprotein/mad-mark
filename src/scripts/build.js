@@ -3,8 +3,8 @@
 const fs = require('bluebird').promisifyAll(require('fs-extra'));
 const {join} = require('path');
 const {exec} = require('child_process');
+const successSymbol = require('log-symbols').success;
 
-const log = require('../lib/log');
 const grabMd = require('./grab');
 const generateStatic = require('./generate');
 const defContentDir = 'content';
@@ -23,6 +23,7 @@ module.exports = function (CWD, IN) {
   const ENB = join(ENB_DIR, 'make.js');
   const TMP = join(CWD, '.bemark');
   const BUNDLE = join(TMP, 'index');
+  const log = require('../lib/log')(userConfig.debug);
 
   log.verbose('touch declaration');
   let layouts = [{name: 'root'}];
@@ -43,17 +44,23 @@ module.exports = function (CWD, IN) {
   fs.removeSync(join(TMP, 'data.json'));
 
   log.verbose('exec enb');
-  exec(`BBIN=${INPUT} BBOUT=${OUTPUT} enb make`, (err) => {
-    if(err) {
-      log.error(err);
-      return;
+  exec(`BBIN=${INPUT} BBOUT=${OUTPUT} enb make`, (error, stdout, stderr) => {
+    if(error) {
+      throw new Error(error);
+      console.error(error);
+      console.log('\n');
     };
 
+    if(userConfig.debug) {
+      console.log(stdout);
+      console.log('\n');
+    }
+
     log.verbose('init grabbing');
-    grabMd(userConfig, CWD, INPUT, OUTPUT);
+    grabMd(userConfig, CWD, INPUT, OUTPUT, log);
 
     log.verbose('init generation');
-    generateStatic(userConfig, CWD, INPUT, OUTPUT);
+    generateStatic(userConfig, CWD, INPUT, OUTPUT, log);
 
     log.verbose('ensure nojekyll file');
     fs.ensureFileSync(join(OUTPUT, '.nojekyll'));
@@ -71,6 +78,8 @@ module.exports = function (CWD, IN) {
     ]).then(() => {
       log.verbose('clean enb temp');
       fs.removeSync(ENB_DIR);
+
+      log.info(`[${successSymbol}]`, 'all done');
     });
   });
 }
