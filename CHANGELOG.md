@@ -1,3 +1,13 @@
+<a name="2.2.3"></a>
+## [2.2.3](https://github.com/awinogradov/bemark/compare/v2.2.2...v2.2.3) (2016-06-10)
+
+
+### Features
+
+* **bs:** pass options for browser sync ([#60](https://github.com/awinogradov/bemark/issues/60)) ([ff3967e](https://github.com/awinogradov/bemark/commit/ff3967e))
+
+
+
 <a name="2.2.2"></a>
 ## [2.2.2](https://github.com/awinogradov/bemark/compare/v2.2.1...v2.2.2) (2016-06-09)
 
