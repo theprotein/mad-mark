@@ -28,7 +28,7 @@ module.exports = function() {
         exec: `bemark build -i ${INPUT}`
       });
 
-      bs.init({
+      const bsOpts = Object.assign(userConfig.server || {}, {
         server: {
           baseDir: userConfig.output
         },
@@ -40,14 +40,13 @@ module.exports = function() {
           join(userConfig.output, '**', '*.html'),
           join(userConfig.output, '**', '*.*.html')
         ],
-        tunnel: false,
-        online: false,
-        open: false,
         notify: userConfig.debug,
         logPrefix: infoSymbol,
         logFileChanges: userConfig.debug,
         logLevel: userConfig.debug ? 'debug' : 'info'
       });
+
+      bs.init(bsOpts);
 
       nodemon.on('quit', function () {
         bs.exit();

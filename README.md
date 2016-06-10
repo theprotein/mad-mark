@@ -196,7 +196,11 @@ module.exports = {
   debug: false, // false by default
   langs: ['en', 'ru'],
   themes: ['<theme-name>', ...], // all sub folders names from `themes` folder
-  output: './dist'
+  output: './dist',
+  server: { // will be passed as options for Browser Sync
+    tunnel: true, // https://www.browsersync.io/docs/options
+    open: false
+  }
 };
 ```
 
