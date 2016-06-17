@@ -18,7 +18,7 @@ Watch __examples__ [here](https://github.com/awinogradov/bemark-examples).
 
 ## Usage
 
-Mad Mark can work standalone and in existing project like cli-tool for static content generation. Documentation for any project will be the best example. Mad Mark can help to build local and online documentation in easy way. Also you can write blog, artciles and anything from your mind ;)
+Mad Mark can work standalone and in existing project like cli-tool for static content generation. Documentation for any project will be the best example. Mad Mark can help to build local and online documentation in easy way. Also you can write blog, articles and anything from your mind ;)
 
 ## Init
 
@@ -70,7 +70,7 @@ Point your browser to [http://localhost:3000](http://localhost:3000). Now you ca
 ## Content
 
 To generate static pages put markdown files into `content/*` with lang suffixes (e.g. `index.en.md`).
-You may use yaml header to set title and tags like this:
+You may use `yaml` header to set title and tags like this:
 
 ```md
 ---
@@ -131,7 +131,7 @@ block('page').mod('layout', 'articles')(
 ## Themes
 
 You can collect your components for layouts in `static/themes/<theme-name>`. One default theme with your project name was created for you by `mark init` command.
-Theme folders follows [filesystem organisation for BEM projects](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
+Theme folders follows [filesystem organization for BEM projects](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
 Component is the subfolder of theme for entity with `*.bemhtml.js`, `*.css` and `*.js` implementation. For example you can write component for header. Put template below to `static/themes/<theme-name>/header/header.bemhtml.js`:
 
 ``` js
@@ -251,7 +251,7 @@ module.exports = {
 };
 ```
 
-You can use this information in your templates in this maner:
+You can use this information in your templates in this manner:
 
 ``` js
 // static/themes/<project-name>/header/header.bemhtml.js
