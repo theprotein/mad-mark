@@ -4,7 +4,7 @@ const coa = require('coa');
 const pkg = require('../../../package.json');
 
 module.exports = coa.Cmd()
-  .name('bemark')
+  .name('mark')
   .title('Static generator')
   .helpful()
   .opt()
@@ -18,7 +18,7 @@ module.exports = coa.Cmd()
     .end()
   .cmd().name('init').apply(require('./commands/init.js')).end()
   .cmd().name('build').apply(require('./commands/build.js')).end()
-  .cmd().name('server').apply(require('./commands/server.js')).end()
+  .cmd().name('serve').apply(require('./commands/serve.js')).end()
   .act(function() {
     console.log('Type \'--help\' for help');
   })

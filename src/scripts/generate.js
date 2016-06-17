@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const infoSymbol = require('log-symbols').info;
 
 module.exports = function (userConfig, CWD, INPUT, OUTPUT, log) {
-  const TMP = join(CWD, '.bemark');
+  const TMP = join(CWD, '.mark');
 
   let BEMHTML;
   try {

@@ -1,8 +1,10 @@
-# Bemark
+# Mad Mark
 
-Static site generator based on Markdown and [bem-xjst](https://github.com/bem/bem-xjst). Motivation is easy modular component based way to build static sites from simple markdown files.
+Static site generator based on Markdown and [bem-xjst](https://github.com/bem/bem-xjst).
+Motivation is easy modular component based way to build static sites from simple markdown files.
+Like Max but Mark ;)
 
-To match this needs Bemark uses:
+To match this needs Mad Mark uses:
 * extendable [`bemhtml`](https://github.com/bem/bem-xjst/blob/master/docs/en/5-templates-syntax.md) templates provided by `bem-xjst`;
 * [`PostCSS`](https://github.com/postcss/postcss) for css transformations;
 * [`PostHTML`](https://github.com/posthtml/posthtml) to transform compiled markdown into tree of blocks passed to `bem-xjst`;
@@ -12,19 +14,19 @@ Watch __examples__ [here](https://github.com/awinogradov/bemark-examples).
 
 ## Installation
 
-> npm i --save-dev bemark
+> npm i --save-dev mad-mark
 
 ## Usage
 
-Bemark can work standalone and in existing project like cli-tool for static content generation. Documentation for any project will be the best example. Bemark can help to build local and online documentation in easy way. Also you can write blog, artciles and anything from your mind ;)
+Mad Mark can work standalone and in existing project like cli-tool for static content generation. Documentation for any project will be the best example. Mad Mark can help to build local and online documentation in easy way. Also you can write blog, artciles and anything from your mind ;)
 
 ## Init
 
-You should choose cwd directory for your content in Markdown, output directory for generated content and languages for i18n. Bemark support i18n as well. First language will be used as default.
+You should choose cwd directory for your content in Markdown, output directory for generated content and languages for i18n. Mad Mark support i18n as well. First language will be used as default.
 
-> bemark init
+> mark init
 
-After that Bemark generate base project structure:
+After that Mad Mark generate base project structure:
 
 ```
 ├── config.js
@@ -42,7 +44,7 @@ After that Bemark generate base project structure:
 
 You can build all content in two ways. Firstly, it's simple command:
 
-> bemark build
+> mark build
 
 After that you can open generated content as html files `open dist/index.html`.
 You can see generated folder structure below:
@@ -61,7 +63,7 @@ You can see generated folder structure below:
 
 Second way to build your site is the dev-server which based on [browser-sync](browsersync.io).
 
-> bemark server
+> mark serve
 
 Point your browser to [http://localhost:3000](http://localhost:3000). Now you can edit your content, templates and configs with live-reloading ;)
 
@@ -128,7 +130,7 @@ block('page').mod('layout', 'articles')(
 
 ## Themes
 
-You can collect your components for layouts in `static/themes/<theme-name>`. One default theme with your project name was created for you by `bemark init` command.
+You can collect your components for layouts in `static/themes/<theme-name>`. One default theme with your project name was created for you by `mark init` command.
 Theme folders follows [filesystem organisation for BEM projects](https://en.bem.info/methodology/filesystem/#file-system-organization-of-a-bem-project).
 Component is the subfolder of theme for entity with `*.bemhtml.js`, `*.css` and `*.js` implementation. For example you can write component for header. Put template below to `static/themes/<theme-name>/header/header.bemhtml.js`:
 
@@ -183,7 +185,7 @@ block('page').mod('layout', 'articles')(
 });
 ```
 
-Run `bemark server` to watch result at the same time.
+Run `mark serve` to watch result at the same time.
 
 You can use many themes in one project. Make sure your themes is defined in [config](#config). All of them is active in the same time and used as [redefinition levels](https://en.bem.info/methodology/key-concepts/#redefinition-level).
 
@@ -210,7 +212,7 @@ Config data is exposed to your templates as `this._config` helper.
 
 ### Meta
 
-Components or layouts may require extra information about your markdown, project, other files, languages, paginations and etc. Bemark know this problem ;)
+Components or layouts may require extra information about your markdown, project, other files, languages, paginations and etc. Mad Mark know this problem ;)
 
 You can get information below in body of your templates by call `this._*`, ex `this._name`, `this._config`:
 
@@ -272,14 +274,14 @@ block('header')(
 
 ## Markdown transform
 
-By default Bemark transform Markdown to posthtml-tree and apply plugins for semantic
+By default Mad Mark transform Markdown to posthtml-tree and apply plugins for semantic
 and bemjson content. You can use custom posthtml-plugins by config:
 
 ``` js
 module.exports = {
   ...
   posthtmlPlugins: [].concat(
-    require('bemark').posthtmlPlugins,
+    require('mad-mark').posthtmlPlugins,
     require('custom-posthtml-plugin')
   )
 };

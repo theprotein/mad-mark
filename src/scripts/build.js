@@ -21,7 +21,7 @@ module.exports = function (CWD, IN) {
   const OUTPUT = join(CWD, userConfig.output);
   const ENB_DIR = join(CWD, '.enb');
   const ENB = join(ENB_DIR, 'make.js');
-  const TMP = join(CWD, '.bemark');
+  const TMP = join(CWD, '.mark');
   const BUNDLE = join(TMP, 'index');
   const log = require('../lib/log')(userConfig.debug);
 

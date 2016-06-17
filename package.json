@@ -1,12 +1,13 @@
 {
-  "name": "bemark",
+  "name": "mad-mark",
   "version": "2.2.3",
-  "bin": {
-    "bemark": "./bin/bemark"
-  },
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:awinogradov/bemark.git"
+    "url": "git@github.com:theprotein/mad-mark.git"
+  },
+  "bin": {
+    "mark": "./bin/mark"
   },
   "engines": {
     "node": ">=6"
@@ -44,6 +45,5 @@
     "postcss": "^5.0.21",
     "posthtml": "^0.8.7",
     "winston": "^2.2.0"
-  },
-  "license": "MIT"
+  }
 }

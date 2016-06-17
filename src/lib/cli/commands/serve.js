@@ -25,7 +25,7 @@ module.exports = function() {
         ],
         ignore: [userConfig.output],
         ext: 'bemhtml.js js css post.css svg md json',
-        exec: `bemark build -i ${INPUT}`
+        exec: `mark build -i ${INPUT}`
       });
 
       const bsOpts = Object.assign(userConfig.server || {}, {

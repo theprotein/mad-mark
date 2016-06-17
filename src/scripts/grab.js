@@ -11,7 +11,7 @@ const defContentDir = 'content';
 
 module.exports = function (userConfig, CWD, INPUT, OUTPUT, log) {
   log.info(`[${infoSymbol}]`, `grab *.md files from ${INPUT}...`);
-  const TMP = join(CWD, '.bemark');
+  const TMP = join(CWD, '.mark');
   const dataPath = join(TMP, 'data.json');
   const mdFilesInRoot = glob.sync(join(INPUT, defContentDir, '*.md'));
   const mdFilesWithLayout = glob.sync(join(INPUT, defContentDir, '*', '*.md'));
@@ -30,7 +30,7 @@ module.exports = function (userConfig, CWD, INPUT, OUTPUT, log) {
                             userConfig.layouts[layout] &&
                             userConfig.layouts[layout].posthtmlPlugins) ||
                             userConfig.posthtmlPlugins ||
-                            require('bemark').posthtmlPlugins;
+                            require('mad-mark').posthtmlPlugins;
 
     return {
       fileName: fileName,

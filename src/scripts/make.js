@@ -16,12 +16,12 @@ const techs = {
 };
 const enbBemTechs = require('enb-bem-techs');
 const levels = [].concat(
-  require('bemark').levels.map(path => (join(CWD, path))),
+  require('mad-mark').levels.map(path => (join(CWD, path))),
   userConfig.themes.map(theme => (`${join(INPUT, 'themes', theme)}`))
 );
 
 module.exports = function(config) {
-  config.nodes(`${join('.bemark', '*')}`, nodeConfig => {
+  config.nodes(`${join('.mark', '*')}`, nodeConfig => {
     nodeConfig.addTechs([
       [enbBemTechs.levels, { levels: levels }],
       [techs.fileProvider, { target: '?.bemdecl.js' }],
