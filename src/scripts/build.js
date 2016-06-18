@@ -15,7 +15,8 @@ const decl = [
   {name: 'lang-switcher'}
 ];
 
-module.exports = function (CWD, IN) {
+module.exports = function (IN) {
+  const CWD = process.cwd();
   const INPUT = join(CWD, IN);
   const userConfig = require(join(INPUT, 'config'));
   const OUTPUT = join(CWD, userConfig.output);
@@ -34,7 +35,7 @@ module.exports = function (CWD, IN) {
   }).forEach(layout => layouts.push({name: layout}));
 
   decl.push({name: 'page', mods: [{ name: 'layout', vals: layouts }]});
-  fs.outputFileSync(join(BUNDLE, 'index.bemdecl.js'), `exports.blocks=${JSON.stringify(decl)}`);
+  fs.outputFileSync(join(BUNDLE, 'index.bemdecl.js'), `exports.blocks = ${JSON.stringify(decl, null, 4)}`);
 
   log.verbose('prepare config for enb in', ENB);
   fs.copySync(join(__dirname, 'make.js'), ENB);

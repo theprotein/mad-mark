@@ -13,8 +13,5 @@ module.exports = function() {
       .short('i')
       .def('.')
       .end()
-    .act(function(opts) {
-      const {INPUT} = opts;
-      INPUT && build(process.cwd(), INPUT);
-    });
+    .act(opts => build(opts.INPUT));
 };
