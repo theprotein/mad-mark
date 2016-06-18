@@ -2,8 +2,10 @@
 
 const fs = require('bluebird').promisifyAll(require('fs-extra'));
 const {join} = require('path');
-const {exec} = require('child_process');
 const successSymbol = require('log-symbols').success;
+
+const {make} = require('enb');
+const getEnbConfig = require('./make.js');
 
 const grabMd = require('./grab');
 const generateStatic = require('./generate');
@@ -15,12 +17,15 @@ const decl = [
   {name: 'lang-switcher'}
 ];
 
-module.exports = function (CWD, IN) {
+module.exports = function (IN) {
+  const CWD = process.cwd();
   const INPUT = join(CWD, IN);
   const userConfig = require(join(INPUT, 'config'));
   const OUTPUT = join(CWD, userConfig.output);
+
   const ENB_DIR = join(CWD, '.enb');
-  const ENB = join(ENB_DIR, 'make.js');
+  fs.ensureDirSync(ENB_DIR);
+
   const TMP = join(CWD, '.mark');
   const BUNDLE = join(TMP, 'index');
   const log = require('../lib/log')(userConfig.debug);
@@ -34,52 +39,44 @@ module.exports = function (CWD, IN) {
   }).forEach(layout => layouts.push({name: layout}));
 
   decl.push({name: 'page', mods: [{ name: 'layout', vals: layouts }]});
-  fs.outputFileSync(join(BUNDLE, 'index.bemdecl.js'), `exports.blocks=${JSON.stringify(decl)}`);
-
-  log.verbose('prepare config for enb in', ENB);
-  fs.copySync(join(__dirname, 'make.js'), ENB);
+  fs.outputFileSync(join(BUNDLE, 'index.bemdecl.js'), `exports.blocks = ${JSON.stringify(decl, null, 4)}`);
 
   log.verbose('clean old data');
   fs.removeSync(OUTPUT);
   fs.removeSync(join(TMP, 'data.json'));
 
   log.verbose('exec enb');
-  exec(`BBIN=${INPUT} BBOUT=${OUTPUT} enb make`, (error, stdout, stderr) => {
-    if(error) {
-      throw new Error(error);
-      console.error(error);
-      console.log('\n');
-    };
 
-    if(userConfig.debug) {
-      console.log(stdout);
-      console.log('\n');
-    }
+  make({config: getEnbConfig(userConfig)})
+    .then(() => {
+      log.verbose('init grabbing');
+      grabMd(userConfig, CWD, INPUT, OUTPUT, log);
 
-    log.verbose('init grabbing');
-    grabMd(userConfig, CWD, INPUT, OUTPUT, log);
+      log.verbose('init generation');
+      generateStatic(userConfig, CWD, INPUT, OUTPUT, log);
 
-    log.verbose('init generation');
-    generateStatic(userConfig, CWD, INPUT, OUTPUT, log);
+      log.verbose('ensure nojekyll file');
+      fs.ensureFileSync(join(OUTPUT, '.nojekyll'));
+    })
+    .then(() => {
+      log.verbose('move assets');
+      return Promise.all([
+        fs.moveAsync(
+          join(BUNDLE, 'index.min.js'),
+          join(OUTPUT, 'js', 'scripts.min.js')
+        ),
+        fs.moveAsync(
+          join(BUNDLE, 'index.min.css'),
+          join(OUTPUT, 'css', 'styles.min.css')
+        )
+      ]);
+    })
+    .then(() => {
+        log.verbose('clean enb temp');
+        fs.removeSync(ENB_DIR);
+        fs.removeSync(TMP);
 
-    log.verbose('ensure nojekyll file');
-    fs.ensureFileSync(join(OUTPUT, '.nojekyll'));
-
-    log.verbose('move assets');
-    Promise.all([
-      fs.moveAsync(
-        join(BUNDLE, 'index.min.js'),
-        join(OUTPUT, 'js', 'scripts.min.js')
-      ),
-      fs.moveAsync(
-        join(BUNDLE, 'index.min.css'),
-        join(OUTPUT, 'css', 'styles.min.css')
-      )
-    ]).then(() => {
-      log.verbose('clean enb temp');
-      fs.removeSync(ENB_DIR);
-
-      log.info(`[${successSymbol}]`, 'all done');
-    });
-  });
+        log.info(`[${successSymbol}]`, 'all done');
+    })
+    .fail(err => log.error(err))
 }
