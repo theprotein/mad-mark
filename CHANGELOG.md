@@ -1,3 +1,13 @@
+<a name="2.2.4"></a>
+## [2.2.4](https://github.com/theprotein/mad-mark/compare/v2.2.3...v2.2.4) (2016-06-18)
+
+
+### Features
+
+* rename ([02e8e12](https://github.com/theprotein/mad-mark/commit/02e8e12))
+
+
+
 <a name="2.2.3"></a>
 ## [2.2.3](https://github.com/awinogradov/bemark/compare/v2.2.2...v2.2.3) (2016-06-10)
 
