@@ -29,12 +29,10 @@ module.exports = function semantize(tree) {
     return node;
   });
 
-  [1, 2, 3, 4, 5, 6].forEach(lvl => {
-    tree.match({ tag: `h${lvl}` }, node => {
-      node.block = 'heading';
-      node.mods = { lvl };
-      return node;
-    });
+  tree.match({ tag: /^h\d$/ }, node => {
+    node.block = 'heading';
+    node.mods = { lvl: node.tag.charAt(1) };
+    return node;
   });
 
   tree.match({ tag: 'table' }, node => {
