@@ -298,7 +298,7 @@ module.exports = {
   ...
   postcssPlugins: [
     require('postcss-import'),
-    require('bem-grid').postcss(),
+    require('sharps').postcss(),
     require('postcss-nested'),
     require('postcss-font-magician'),
     require('postcss-browser-reporter'),
