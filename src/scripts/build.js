@@ -50,8 +50,9 @@ module.exports = function (IN) {
   make({config: getEnbConfig(userConfig)})
     .then(() => {
       log.verbose('init grabbing');
-      grabMd(userConfig, CWD, INPUT, OUTPUT, log);
-
+      return grabMd(userConfig, CWD, INPUT, OUTPUT, log);
+    })
+    .then(() => {
       log.verbose('init generation');
       generateStatic(userConfig, CWD, INPUT, OUTPUT, log);
 
