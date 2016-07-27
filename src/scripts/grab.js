@@ -19,7 +19,7 @@ module.exports = function (userConfig, CWD, INPUT, OUTPUT, log) {
   const mdFilesWithLayout = glob.sync(join(INPUT, defContentDir, '*', '*.md'));
   const mdFiles = [].concat(mdFilesInRoot, mdFilesWithLayout);
 
-  const results = mdFiles.map(file => {
+  return Promise.all(mdFiles.map(file => {
     log.verbose('compile', file);
     const md = fs.readFileSync(file, 'utf-8');
     const compiled = marked(md);
@@ -33,17 +33,21 @@ module.exports = function (userConfig, CWD, INPUT, OUTPUT, log) {
                             userConfig.posthtmlPlugins ||
                             defPosthtmlPlugins;
 
-    return {
-      fileName: fileName,
-      name: fileName.split('.')[0],
-      layout: layout,
-      path: file,
-      lang: fileName.split('.')[1],
-      meta: compiled.meta,
-      content: posthtml(posthtmlPlugins).process(compiled.html, { sync: true }).tree
-    };
+    return posthtml(posthtmlPlugins)
+      .process(compiled.html)
+      .then(({tree}) => {
+        return {
+          fileName: fileName,
+          name: fileName.split('.')[0],
+          layout: layout,
+          path: file,
+          lang: fileName.split('.')[1],
+          meta: compiled.meta,
+          content: tree
+        };
+      })
+  })).then(results => {
+    log.verbose('collect data to', dataPath);
+    fs.outputFileSync(dataPath, JSON.stringify(results, null, 4));
   });
-
-  log.verbose('collect data to', dataPath);
-  fs.outputFileSync(dataPath, JSON.stringify(results, null, 4));
 }
